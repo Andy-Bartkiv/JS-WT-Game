@@ -3,11 +3,13 @@ WT-Game
 
 ////////////
 THE GAME CONCEPT
+
 The game is based on the ability to logically determine which wire goes where, 
 and decide which Electronic Chip should be installed at each position on the circuit board 
 in order to let electricity flow to the right places and not flow to the wrong places.
 
 THE CIRCUIT BOARD
+
 When doing electronics work, the screen shows a close-up of a circuit board. 
 It is covered with chips, and there are signal traces running across the board and through those chips.
 - Signal Paths
@@ -15,6 +17,7 @@ It is covered with chips, and there are signal traces running across the board a
 - Logic Chips
 
 RULES OF THE GAME
+
 An Electronics game begins with the chips on the board arranged in a way that the wires on the right-hand side 
 (those going into the Target Chips) are carrying electricity into the Phone/Trace chips, and no electricity into the Alarm chips.
 
@@ -29,6 +32,7 @@ In addition, this game is limited in time - you only have anywhere from 1 to 10 
 otherwise it ends with a semi-failure.
 
 THE LOGIC OF CHIPS
+
 There are exactly 12 different kinds of Logic Chips that can appear on a circuit board.
 The actual number of chip types that you'll encounter is based on the difficulty level of the mini-game itself.
 Each chip performs a different "logical operation". It acts based on the state of the two wires coming in its left side,
