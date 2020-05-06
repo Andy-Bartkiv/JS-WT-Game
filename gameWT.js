@@ -150,8 +150,8 @@ function timeFormat(tR) {
   let s = Math.trunc(tR/1000 % 60);
   let ds = Math.trunc(tR/10 % 100); 
   strTimer =  (m<10) ? `0${m}`  : `${m}`;
-  strTimer += (s<10) ? `:0${s}` : `:${s}`;
-  strTimer += (ds<10) ? `:0${ds}` : `:${ds}`;
+  strTimer += (s<10) ? ` : 0${s}` : ` : ${s}`;
+  strTimer += (ds<10) ? ` : 0${ds}` : ` : ${ds}`;
   return strTimer;
 }
 
@@ -163,10 +163,10 @@ function drawNewTimer(tR) {
     context.fillStyle = '#b00'
   };
   context.fillRect(1026, 734, 200, 50);
-  context.font = "36px Consolas";
+  context.font = "34px Arial";
   context.fillStyle = '#0f0';
   context.textAlign = "start";
-  context.fillText(strTimer, 1046, 770);
+  context.fillText(strTimer, 1040, 771);
 }
 
   // creating layout for PATH elements  6 х 9
