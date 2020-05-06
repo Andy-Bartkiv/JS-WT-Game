@@ -98,12 +98,18 @@ function popUpWindow(type = 'pause') {
     context.fillStyle = '#555';
     context.fillRect(144, 32, 868, 614);
     context.fillStyle = '#0f0';
-    context.font = "64px Consolas";
+    context.font = "48px Arial";
     context.textAlign = "center";
-    context.fillText("--- PAUSE ---", 590, 310);
-    context.font = "32px Consolas";
-    context.fillText("left-click or press SPACE", 590, 390);
-    context.fillText(" to continue", 590, 450);
+    context.fillText("- - GAME PAUSED - -", 590, 130);
+    context.font = "36px Arial";
+    context.fillText("left-click or press SPACE to continue", 590, 200);
+    context.fillText("- use arrow keys or mouse bttn to select a chip,", 590, 350);
+    context.fillText("that you want to replace from the circuit board", 590, 400);
+
+    context.fillText("- press SPACE or click at the 'Spare' chip", 590, 500);
+    context.fillText("on the bottom of the circuit board", 590, 550);
+    context.fillText("to replace selected ('blue') chip", 590, 600);
+
 
   } else if (type == 'time-out') {  //////////////// TIME - OUT
     context.fillStyle = '#ffd';
@@ -627,6 +633,13 @@ function drawSignalSet(matrix) {
 // Draw board and chipSS
 function drawBoard() {
     context.drawImage(board, 0, 0);
+
+    context.fillStyle = 'black';
+    context.fillRect(32, 725, 185, 63);
+    context.font = "34px Arial";
+    context.fillStyle = '#0f0';
+    context.fillText("- HELP -", 63, 767);
+
     for (let i = 0; i < chipSet.length; i++) {
       for (let j = 0; j < chipSet[i].length; j++) {
         if (chipSet[i][j] / 1000 > 2) {
@@ -1001,6 +1014,8 @@ document.addEventListener('click', event => {
       if (respFreeChip.clicked()) {
           if ((xDigit(chipSet[player.pos.y][player.pos.x], 0) !== 2))
           switchChips();
+      } else if (respResetButton.clicked()) {
+          gameState = 'pause';
       } else {
           respChipSet.forEach((row, y) => {
               row.forEach((val, x) => {
