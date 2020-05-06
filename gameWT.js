@@ -42,7 +42,6 @@ const chip60 = document.getElementById('chip-60');
 const chip61 = document.getElementById('chip-61');
 const chip62 = document.getElementById('chip-62');
 
-let gameState = 'running';    // State of the game
 let lastTime = 0;   // tech variable for time counter
 let lastDT = 16;    // tech variable for time counter
 let animationSpeed = 75 // cord Animation Speed for in ms 
@@ -64,14 +63,22 @@ function popUpWindow(type = 'pause') {
 
   if (type == 'alarm') {  //////////////////////  ALARM
     context.fillStyle = '#c00';
-    context.fillStyle = "rgba(255,0,0,0.5)"
-    context.fillRect(393, 154, 500, 370);
+    context.fillStyle = "rgba(255,0,0,0.25)"
+//    context.fillRect(393, 154, 500, 370);
+    context.fillRect(0, 0, canvas.width, canvas.height);  
     context.fillRect(393-64*2, 154-64*2, 500+64*4, 370+64*4);
     context.font = "64px Arial";
     context.fillStyle = '#ff0';
     context.textAlign = "center";
     context.fillText("! ! ! ALARM ! ! !", 640, 298);
     context.fillText("! ! ! ALARM ! ! !", 640, 298+64*2);
+    /////////////////     RESTART AREA AND TEXT /////////////////
+    context.fillStyle = '#0f0';
+    context.fillRect(27, 720, 195, 73);
+    context.font = "Bold 28px Consolas";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 125, 750);
+    context.fillText("TO RESTART", 125, 780);
 
   } else if (type == 'clue') {  //////////////// CLUE
     context.fillStyle = "rgba(85,85,85,0.5)"
@@ -107,9 +114,16 @@ function popUpWindow(type = 'pause') {
     context.fillText("--- TIME EXPIRED ---", 640, 310);
     context.fillText(String(phoneCounter) + " phone(s) tapped", 640, 360);
     context.fillText(String(alarmCounter) + " alarms", 640, 410);
+    /////////////////     RESTART AREA AND TEXT /////////////////
+    context.fillStyle = '#0f0';
+    context.fillRect(27, 720, 195, 73);
+    context.font = "Bold 28px Consolas";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 125, 750);
+    context.fillText("TO RESTART", 125, 780);
 
 
-  } else if (type == 'victory') {  //////////////// VICORY
+  } else if (type == 'victory') {  //////////////// VICTORY
     context.fillStyle = '#ffd';
     context.fillRect(440, 250, 400, 200);
     context.font = "36px Arial";
@@ -118,6 +132,13 @@ function popUpWindow(type = 'pause') {
     context.fillText("--- VICTORY ---", 640, 310);
     context.fillText(String(phoneCounter) + " phone(s) tapped", 640, 360);
     context.fillText(String(alarmCounter) + " alarms", 640, 410);
+    /////////////////     RESTART AREA AND TEXT /////////////////
+    context.fillStyle = '#0f0';
+    context.fillRect(27, 720, 195, 73);
+    context.font = "Bold 28px Consolas";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 125, 750);
+    context.fillText("TO RESTART", 125, 780);
   }
 
 }
@@ -807,6 +828,9 @@ function component(x, y, width, height) {
 
 // Touch Area INIT using Constractor
 function respChipPosition() {
+
+  respResetButton = new component(27, 720, 195, 73);
+
   respFreeChip = new component(620, 722, 48, 64);
 
   respChipSet = [];
@@ -890,34 +914,38 @@ function update(time = 0) {
         popUpWindow('victory');        
     } else if (timeRemain <= 0) {
         timeRemain = 0;
+        gameState = 'time-out'
         drawNewTimer(timeRemain);
         cancelAnimationFrame(myRAF);
         popUpWindow('time-out');
     }
-}
+} // END of function UPDATE()
 
-/////////////////////////////////////////////////////////////////////////
-/////////////////////   Creating GAME BOARD LAYOUT    ///////////////////
-////////////////////////////////////////////////////////////////////////
-let pointerPos = {x: false, y:false};
-const player = {      // position of BLUE CHIP 
-  pos: {y: 2, x: 3},
-};
-let timeRemain = timerInput * 60 * 1000; // countdown timer value in ms
-let animationCounter = 0;               // timer for each animation phase
-let aP = 0;  // animathion Phase [0, 1, 2, 3]
+    /////////////////////////////////////////////////////////////////////////
+    /////////////////////   Creating GAME BOARD LAYOUT    ///////////////////
+    ////////////////////////////////////////////////////////////////////////
+    let pointerPos = {x: false, y:false};
+    const player = {      // position of BLUE CHIP 
+      pos: {y: 2, x: 3},
+    };
+    let timeRemain = timerInput * 60 * 1000; // countdown timer value in ms
+    let animationCounter = 0;               // timer for each animation phase
+    let aP = 0;  // animathion Phase [0, 1, 2, 3]
 
-let clueCounter = 0;
-let phoneCounter = 0;
-let alarmCounter = 0;
+    let clueCounter = 0;
+    let phoneCounter = 0;
+    let alarmCounter = 0;
 
-let freeChip = createFreeChip();            // Init of FREE CHIP
-let chipSet = createChipSet(7, 5);          // Init of LOGIC CHIP Set 
-let targetChipSet = createTargetChipSet();  // Init of TARGET CHIPs: Phones and Bells (5 x 5)
-const pathSet = createPathSet(6,9);         // Init of PATH Layout
-let signalSet = createSignalSet(14, 10);    // Init of Signal Matrix
-chipSet = correctChipSet();     // Correction of Logic Chips Layout to gain 0's output
-respChipPosition();                         // Creating LOGIC CHIPs TOUCH areas
+    let gameState = 'running';                  // State of the game
+    let freeChip = createFreeChip();            // Init of FREE CHIP
+    let chipSet = createChipSet(7, 5);          // Init of LOGIC CHIP Set 
+    let targetChipSet = createTargetChipSet();  // Init of TARGET CHIPs: Phones and Bells (5 x 5)
+    const pathSet = createPathSet(6,9);         // Init of PATH Layout
+    let signalSet = createSignalSet(14, 10);    // Init of Signal Matrix
+    chipSet = correctChipSet();     // Correction of Logic Chips Layout to gain 0's output
+    respChipPosition();              
+
+
 
 // KEYBOARD CONTROLS:////////////////////////////////////////////
 //                    arrows: to move blue chip
@@ -985,6 +1013,10 @@ document.addEventListener('click', event => {
   } else if ((gameState == 'pause') || (gameState == 'clue')) {
     gameState = 'running';
     update();
+  } else if ((gameState == 'alarm') || (gameState == 'victory') || (gameState == 'time-out')) {
+      if (respResetButton.clicked()) {
+        document.location.reload(true);
+      }
   }
 }); // END of document.addEventListener('mousedown'
 
@@ -1015,14 +1047,17 @@ document.addEventListener('toucstart', event => {
   } else if ((gameState == 'pause') || (gameState == 'clue')) {
     gameState = 'running';
     update();
-  }
+  } else if ((gameState == 'alarm') || (gameState == 'victory') || ((gameState == 'time-out'))) {
+    if (respResetButton.clicked()) {
+      document.location.reload(true);
+    }
+}
 }); // END of document.addEventListener('touchstart')
 
 document.addEventListener('touchend', event => {
   pointerPos.x = false;
   pointerPos.y = false;
 }); // END of document.addEventListener('touchend'
-
 
 // MAIN GAME LOOP Run
 update();
