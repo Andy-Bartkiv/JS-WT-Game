@@ -997,8 +997,10 @@ document.addEventListener('mouseup', event => {
 
 /////////////////   TOUCH-PAD Events  /////////////////////
 
-document.addEventListener('touchend', event => {
-  pointerPos = getMousePosition(canvas, event);
+document.addEventListener('toucstart', event => {
+  // pointerPos = getMousePosition(canvas, event);
+  pointerPos.x = e.changedTouches[0].clientX;
+  pointerPos.y = e.changedTouches[0].clientY;
   if (gameState == 'running')  {
       if (respFreeChip.clicked()) {
           if ((xDigit(chipSet[player.pos.y][player.pos.x], 0) !== 2))
