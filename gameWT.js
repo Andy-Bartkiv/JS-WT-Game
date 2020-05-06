@@ -850,15 +850,13 @@ function update(time = 0) {
   timeRemain -= deltaTime;
 
 ///////////  POP UP WINDOWS ON EVENTS /////////////////////////////////////
-
   
-  context.font = "64px Arial";
-  context.fillStyle = '#ff0';
-  context.textAlign = "center";
+  // context.font = "64px Arial";
+  // context.fillStyle = '#ff0';
+  // context.textAlign = "center";
 
-  context.fillText(String(Math.round(pointerPos.x)), 60, 50);
-  context.fillText(String(Math.round(pointerPos.y)), 230, 50);
-
+  // context.fillText(String(Math.round(pointerPos.x)), 60, 50);
+  // context.fillText(String(Math.round(pointerPos.y)), 230, 50);
 
 //////////  ALARM State ???
   if (targetChipSet.includes(10)) {
@@ -1020,10 +1018,10 @@ document.addEventListener('toucstart', event => {
   }
 }); // END of document.addEventListener('touchstart')
 
-// document.addEventListener('touchend', event => {
-//   pointerPos.x = false;
-//   pointerPos.y = false;
-// }); // END of document.addEventListener('touchend'
+document.addEventListener('touchend', event => {
+  pointerPos.x = false;
+  pointerPos.y = false;
+}); // END of document.addEventListener('touchend'
 
 
 // MAIN GAME LOOP Run
