@@ -42,106 +42,156 @@ const chip60 = document.getElementById('chip-60');
 const chip61 = document.getElementById('chip-61');
 const chip62 = document.getElementById('chip-62');
 
-let lastTime = 0;   // tech variable for time counter
-let lastDT = 16;    // tech variable for time counter
-let animationSpeed = 75 // cord Animation Speed for in ms 
-////////////////////////// GAME DIFFICULTY SETTINGS //////////////////////////////////////////
-const timerInput = 10; // time for solving puzzle in min;
-const chipTypes = 12;   // Number of Chip Types at board
-const nCP = 8; // number Of Crossed Paths in Between // Total Between-Path num = 24;
-const nSC = 2; // number Of Sealed Chips
-const nHC = 2; // number Of HIDDEN Chips
-//          chipTypes - nCP   - nSC   - nHC
-// Beginner   =  6       4      0       0
-// Easy       =  8      7-8     2       0
-// Normal     = 10       8      4       11
-// Hard       = 12    {11-13}   =5=   {12-18}
-///////////////////////////////////////////////////////////////////////////////////////////////
-
 // pop-up message Window display
 function popUpWindow(type = 'pause') {
 
   if (type == 'alarm') {  //////////////////////  ALARM
-    context.fillStyle = '#c00';
-    context.fillStyle = "rgba(255,0,0,0.25)"
-//    context.fillRect(393, 154, 500, 370);
-    context.fillRect(0, 0, canvas.width, canvas.height);  
-    context.fillRect(393-64*2, 154-64*2, 500+64*4, 370+64*4);
-    context.font = "64px Arial";
+    context.fillStyle = "rgba(255,0,0,0.3)"
+    context.fillRect(0, 0, canvas.width, canvas.height-107);  
+    context.font = "Bold 64px Monospace";
     context.fillStyle = '#ff0';
     context.textAlign = "center";
-    context.fillText("! ! ! ALARM ! ! !", 640, 298);
-    context.fillText("! ! ! ALARM ! ! !", 640, 298+64*2);
-    /////////////////     RESTART AREA AND TEXT /////////////////
-    context.fillStyle = '#0f0';
-    context.fillRect(27, 720, 195, 73);
-    context.font = "Bold 28px Consolas";
-    context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 125, 750);
-    context.fillText("TO RESTART", 125, 780);
-
-  } else if (type == 'clue') {  //////////////// CLUE
-    context.fillStyle = "rgba(85,85,85,0.5)"
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = '#ffd';
-    context.fillRect(393-64*2, 154-64*2, 500+64*4, 370+64*4);
-    context.font = "64px Arial";
-    context.fillStyle = '#100';
+    context.fillText("! ! ! ALARM ! ! !", 640, 295-64*2);
+    context.fillText("! ! ! ALARM ! ! !", 640, 295);
+    context.fillText("! ! ! ALARM ! ! !", 640, 295+64*2);
+    context.fillText("! ! ! ALARM ! ! !", 640, 295+64*4);
+    /////////////////     RETURN & RESTART AREA and TEXT 
     context.textAlign = "center";
-    context.font = "32px Arial";
-    context.fillText("You have successfully tapped a phone line", 640, 310);
-    context.fillText("and got clue № " + String(clueCounter), 640, 360);
+    context.fillStyle = '#0c0';
+    context.fillRect(352, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText(" TO EXIT ", 448, 750);
+    context.fillText("PRES HERE", 448, 780);
+    /// ----------------------- /////////////
+    context.fillStyle = '#0c0';
+    context.fillRect(738, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 835, 750);
+    context.fillText("TO RESTART", 835, 780);
 
-  } else if (type == 'pause') { ///////////////// PAUSE
-    context.fillStyle = "rgba(85,85,85,0.5)"
+  } else if (type == 'clue') {  ////////////////    CLUE    /////////// 
+    context.fillStyle = "rgba(85,85,85,0.35)"
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = '#555'; /// 555
+    context.fillRect(144, 32, 868, 614);
+
+    context.fillStyle = '#ffd';
+    context.fillRect(370, 8*32+3, 13*32, 5*32);
+    context.textAlign = "center"; 
+    context.font = "32px Monospace";
+    context.fillStyle = '#100';
+    context.fillText("Good job,", 578, 307);
+    context.fillText("another phone tapped,", 578, 352);
+    context.fillText("you've got clue № " + String(clueCounter), 578, 392);
+    
+  } else if (type == 'pause') { //////////////    PAUSE    ////////////////
+    context.fillStyle = "rgba(85,85,85,0.35)"
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = '#555';
     context.fillRect(144, 32, 868, 614);
     context.fillStyle = '#0f0';
-    context.font = "64px Consolas";
+    context.font = "48px Monospace";
     context.textAlign = "center";
-    context.fillText("--- PAUSE ---", 590, 310);
-    context.font = "32px Consolas";
-    context.fillText("left-click or press SPACE", 590, 390);
-    context.fillText(" to continue", 590, 450);
+    context.fillText("    - - - GAME PAUSED - - -    ", 580, 112);
+    context.font = "30px Monospace";
+    context.fillText("left-click or press SPACE to continue", 580, 172);
+    context.fillText("- use arrow keys or mouse bttn to select a chip,", 580, 331);
+    context.fillText("that you want to replace from the circuit board", 580, 381);
+    context.fillText("- press SPACE or click at the 'Spare' chip", 580, 491);
+    context.fillText("on the bottom of the circuit board", 580, 541);
+    context.fillText("to replace selected ('blue') chip", 580, 591);
+    /////////////////     RETURN & RESTART AREA and TEXT /////////////////
+    context.fillStyle = '#0c0';
+    context.fillRect(352, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText(" TO EXIT ", 448, 750);
+    context.fillText("PRES HERE", 448, 780);
+    /// ----------------------- /////////////
+    context.fillStyle = '#0c0';
+    context.fillRect(738, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 835, 750);
+    context.fillText("TO RESTART", 835, 780);
 
-  } else if (type == 'time-out') {  //////////////// TIME - OUT
-    context.fillStyle = '#ffd';
-    context.fillRect(440, 250, 400, 200);
-    context.font = "36px Arial";
+
+  } else if (type == 'time-out') {  //////////////// TIME - OUT  ////////////////////////////////////
+    context.fillStyle = "rgba(255,255,200,0.85)"
+    context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
-    context.fillText("--- TIME EXPIRED ---", 640, 310);
-    context.fillText(String(phoneCounter) + " phone(s) tapped", 640, 360);
-    context.fillText(String(alarmCounter) + " alarms", 640, 410);
-    /////////////////     RESTART AREA AND TEXT /////////////////
-    context.fillStyle = '#0f0';
-    context.fillRect(27, 720, 195, 73);
-    context.font = "Bold 28px Consolas";
+    context.font = "Bold 36px Monospace";
+    context.fillText("LEVEL: " + strLevel, 640, 350);
+    context.font = "36px Monospace";
+    context.textAlign = "left";
+    context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
+    context.fillText("All phones tapped:..... " + String(phoneCounter), 398, 463);
+    context.fillStyle = 'red';
+    context.fillText("Alarms triggered:...... " + String(alarmCounter), 398, 510);
+    context.fillText("MTIME EXPIRED:......... " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
+    context.fillStyle = '#100';
+    context.fillText("Difficulty level:.... x " + String(level), 398, 607);
+    context.font = "Bold 36px Monospace";
+    context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
+
+    /////////////////     RETURN & RESTART AREA and TEXT 
+    context.textAlign = "center";
+    context.fillStyle = '#0c0';
+    context.fillRect(352, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
     context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 125, 750);
-    context.fillText("TO RESTART", 125, 780);
+    context.fillText(" TO EXIT ", 448, 750);
+    context.fillText("PRES HERE", 448, 780);
+    /// ----------------------- /////////////
+    context.fillStyle = '#0c0';
+    context.fillRect(738, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 835, 750);
+    context.fillText("TO RESTART", 835, 780);
 
 
-  } else if (type == 'victory') {  //////////////// VICTORY
-    context.fillStyle = '#ffd';
-    context.fillRect(440, 250, 400, 200);
-    context.font = "36px Arial";
+  } else if (type == 'victory') {  //////////////// VICTORY  /////////////////////////////////////
+    context.fillStyle = "rgba(255,255,200,0.85)"
+    context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
-    context.fillText("--- VICTORY ---", 640, 310);
-    context.fillText(String(phoneCounter) + " phone(s) tapped", 640, 360);
-    context.fillText(String(alarmCounter) + " alarms", 640, 410);
-    /////////////////     RESTART AREA AND TEXT /////////////////
-    context.fillStyle = '#0f0';
-    context.fillRect(27, 720, 195, 73);
-    context.font = "Bold 28px Consolas";
+    context.font = "Bold 36px Monospace";
+    context.fillText("LEVEL: " + strLevel, 640, 350);
+    context.font = "36px Monospace";
+    context.textAlign = "left";
+    context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
+    context.fillText("All phones tapped:... + " + String(phoneCounter), 398, 463);
+    context.fillStyle = 'red';
+    context.fillText("Alarms triggered:.... - " + String(alarmCounter), 398, 510);
+    context.fillStyle = '#100';
+    if (Math.trunc(timeRemain/1000/60 % 60) > 9)
+         context.fillText("Minutes left:........ +" + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
+    else context.fillText("Minutes left:........ + " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
+    context.fillText("Difficulty level:.... x " + String(level), 398, 607);
+    context.font = "Bold 36px Monospace";
+    context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
+
+    /////////////////     RETURN & RESTART AREA and TEXT 
+    context.textAlign = "center";
+    context.fillStyle = '#0c0';
+    context.fillRect(352, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
     context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 125, 750);
-    context.fillText("TO RESTART", 125, 780);
+    context.fillText(" TO EXIT ", 448, 750);
+    context.fillText("PRES HERE", 448, 780);
+    /// ----------------------- /////////////
+    context.fillStyle = '#0c0';
+    context.fillRect(738, 720, 195, 70);
+    context.font = "Bold 28px Monospace";
+    context.fillStyle = '#000';
+    context.fillText("PRESS HERE", 835, 750);
+    context.fillText("TO RESTART", 835, 780);
   }
-
-}
+} // END of function popUpWindows() // END 
 
 // time formating to view '00:00:00'
 function timeFormat(tR) {
@@ -154,22 +204,21 @@ function timeFormat(tR) {
   strTimer += (ds<10) ? `:0${ds}` : `:${ds}`;
   return strTimer;
 }
-
-  // new countdown timer display (calculations are made inside function update()
+// new countdown timer display (calculations are made inside function update()
 function drawNewTimer(tR) {
   strTimer = timeFormat(tR);
   context.fillStyle = '#000';
   if (((tR/1000) < 10) && (parseInt(strTimer[6]) % 10 < 5)) { //// RED LIGHT on Timer
     context.fillStyle = '#b00'
   };
-  context.fillRect(1026, 734, 200, 50);
-  context.font = "36px Consolas";
+  context.fillRect(1040, 726, 200, 60);
+  context.font = "38px Monospace";
   context.fillStyle = '#0f0';
   context.textAlign = "start";
-  context.fillText(strTimer, 1046, 770);
+  context.fillText(strTimer, 1056, 767);
 }
 
-  // creating layout for PATH elements  6 х 9
+// creating layout for PATH elements  6 х 9
 function createPathSet(w, h) {
   const matrix = [];
   for (let i = 0; i < h; i++) {
@@ -225,45 +274,39 @@ function createPathSet(w, h) {
 
   return matrix;
 } // Function END
-
-  // creating layout for LOGIC CHIP elements 7 х 5
+// creating layout for LOGIC CHIP elements 7 х 5
 function createChipSet(w, h) {
     const matrix = [];
     for (let i = 0; i < h; i++) {
       matrix[i] = []
       for (let j = 0; j < w; j++) {
         if (chipTypes < 7) matrix[i][j] = 1101 + Math.floor(Math.random() * chipTypes);
-        else {
+        else {// ---------------------------- // removing combiners in case typeChips > 6
           let rnd = 1101 + Math.floor(Math.random()*(chipTypes - 2));
           matrix[i][j] = (rnd < 1103) ? rnd : rnd + 2;
         }
       }
     }
+
   // Correcting last column to remove combiners and splitters
     for (let i = 0; i < h; i++) {
       if ((matrix[i][w-1] > 1102) && (matrix[i][w-1] < 1107)) {
         matrix[i][w-1] = 1101 + Math.floor(Math.random() * 2);
-
       }
-    }
-   // removing combiners in case typeChips > 6
-   if (chipTypes > 6)
-    {
-
     }
 
    // - - - - - -  - - - - - - - - - - - - number Of Sealed Chips
     for (let i = 0; i < nSC; i++) {
-      let xSC = (Math.floor(Math.random() * (w-2)));
-      let ySC = (Math.floor(Math.random() * (h-1)));
+      let xSC = (Math.floor(Math.random() * (h)));
+      let ySC = (Math.floor(Math.random() * (w-2)));
       if (xDigit(matrix[xSC][ySC], 0) === 1) {
         matrix[xSC][ySC] += 1000;
       }
     }
 // --------------------------------- // number Of HIDDEN Chips
     for (let i = 0; i < nHC; i++) {
-      let xHC = (Math.floor(Math.random() * (w-2)));
-      let yHC = (Math.floor(Math.random() * (h-1)));
+      let xHC = (Math.floor(Math.random() * (h)));
+      let yHC = (Math.floor(Math.random() * (w-1)));
       if ((xDigit(matrix[xHC][yHC], 0) === 1) & 
           (xDigit(matrix[xHC][yHC], 2) < 5)) {
         matrix[xHC][yHC] += 70;
@@ -274,7 +317,6 @@ function createChipSet(w, h) {
 
     return matrix;
 }
-
 function createFreeChip() {
   let res = 0;
   1101 + (Math.floor(Math.random() * chipTypes));
@@ -285,7 +327,6 @@ function createFreeChip() {
   } 
 return res;
 }
-
 // validation (to obtain 0's on all outputs) of LOGIC CHIP SET layout
 function correctChipSet() {
   let matrix = chipSet;
@@ -325,7 +366,6 @@ function correctChipSet() {
   }
   return matrix;
 }
-
 // creating TARGET CHIPs SET layout (5 x 5)
 function createTargetChipSet() {
   let matrix = [];
@@ -359,7 +399,6 @@ function calculateTagetState(targetMatrix) {
 
 return res;
 } // END of function
-
 // creating SIGNAL Matrix 10 х 14
 function createSignalSet(w, h) {
   const matrix = [];
@@ -380,7 +419,6 @@ function createSignalSet(w, h) {
 
 return matrix;
 }
-
 // calculation of Signal Map based on Chip and Path Layout.
 function calculateSignalSet(matrix) {
   let h = matrix.length;
@@ -418,7 +456,6 @@ function calculateSignalSet(matrix) {
   } // END of j LOOP
 return matrix;
 } // END of function calculate Signals END
-
 // Calculating TILE (Chip or Path) Output SIGNAL based on 4 (four) Input Signals
 function calculateTile(tile, sigIn, sigX) {
   let sigOut = {a:0, z:0}
@@ -486,7 +523,6 @@ function xDigit(number, dig) {
   let z = String(number);
   return parseInt(z[dig]);
 }
-
 // getting Random UnEven number from a range
 function getRnd1357(min, max) {
 	let res, rnd = 0;
@@ -504,7 +540,6 @@ function moveBlueChip(ox, oy) {
   player.pos.y +=oy;
   chipSet[player.pos.y][player.pos.x] += 100;
 }
-
 // swithcing Blue Chip and FREE CHIP
 function switchChips() {
   let tempChip = chipSet[player.pos.y][player.pos.x];
@@ -587,7 +622,6 @@ function drawChipSet(matrix) {
     }   
   }
 }
-
 // Display TARGET CHIPs 
 function drawTargetChipSet(matrix) {
   let tile = chipA0;
@@ -604,13 +638,11 @@ function drawTargetChipSet(matrix) {
 //    context.fillText(matrix[j], 1140 + (j%2)*96, (j*2+1)*32 + 25)
   }
 }
-
 // Display FREE CHIP value & image
 function drawFreeChip() {
   context.drawImage(tileIdent(freeChip), 619, 722);
 //    context.fillText(freeChip, 192 + 150*3, 90 + 100*7);
   }
-
 // - - - OBSOLETE - - - // Display Signal Set layout based on calculated signal state
 function drawSignalSet(matrix) {
   let h = matrix.length;
@@ -623,10 +655,16 @@ function drawSignalSet(matrix) {
       }
     }
 }
-
 // Draw board and chipSS
 function drawBoard() {
     context.drawImage(board, 0, 0);
+
+    context.fillStyle = 'black';
+    context.fillRect(30, 726, 190, 60);
+    context.font = "38px Monospace";
+    context.fillStyle = '#0f0';
+    context.fillText("- HELP -", 42, 767);
+
     for (let i = 0; i < chipSet.length; i++) {
       for (let j = 0; j < chipSet[i].length; j++) {
         if (chipSet[i][j] / 1000 > 2) {
@@ -637,7 +675,7 @@ function drawBoard() {
 }
 
 /////////// CORD ANIMATION /////////////////////////////////
-// Cord types cration
+// Cord types creation
 let cordD = createCord('direct');
 let cordL = createCord('long');
 let cordXDn = createCord('cross-down');
@@ -829,7 +867,11 @@ function component(x, y, width, height) {
 // Touch Area INIT using Constractor
 function respChipPosition() {
 
-  respResetButton = new component(27, 720, 195, 73);
+  respHelpButton = new component(28, 720, 195, 70);
+
+  respExitButton = new component(352, 720, 195, 70);
+
+  respRestartButton = new component(738, 720, 195, 70)
 
   respFreeChip = new component(620, 722, 48, 64);
 
@@ -909,21 +951,67 @@ function update(time = 0) {
     } else if (gameState == 'clue') {
         popUpWindow('clue');
     } else if (gameState == 'alarm') {
+        score = 0;
+        localStorage.setItem("lastScore", score);
         popUpWindow('alarm');
     } else if (gameState == 'victory') {
-        popUpWindow('victory');        
+        score = level*(clueCounter + phoneCounter - alarmCounter + Math.trunc(timeRemain/1000/60 % 60));
+        localStorage.setItem("lastScore", score);
+        popUpWindow('victory');      
     } else if (timeRemain <= 0) {
+        score = level*(clueCounter);
+        localStorage.setItem("lastScore", score);
         timeRemain = 0;
         gameState = 'time-out'
         drawNewTimer(timeRemain);
-        cancelAnimationFrame(myRAF);
+        // cancelAnimationFrame(myRAF);
         popUpWindow('time-out');
     }
 } // END of function UPDATE()
 
+
+
+let lastTime = 0;   // tech variable for time counter
+let lastDT = 16;    // tech variable for time counter
+let animationSpeed = 75 // cord Animation Speed for in ms 
+////////////////////////// GAME DIFFICULTY SETTINGS //////////////////////////////////////////
+//          chipTypes - nCP   - nSC   - nHC
+// Newbie     =  6       0      0       0
+// Beginner   =  6       4      0       0
+// Easy       =  8       6      2       5
+// Normal     = 10       8      4       10
+// Expert     = 12      12      6       15
+// Genius     = 12      16     (10)    (20)
+///////////////////////////////////////////////////////////////////////////////////////////////
+const LevelSettings = [
+      [12, 6, 0, 0, 0],   // 0
+      [10, 6, 4, 0, 0],   // 1
+      [9, 8, 6, 2, 5],    // 2
+      [8, 10, 8, 4, 10],  // 3
+      [7, 12, 12, 6, 20], // 4
+      [6, 12, 16, 12, 60] // 5
+      ]
+
+const level = localStorage.getItem("currentLevel");
+let strLevel = 'TRAINEE';
+if (level == 1) strLevel = 'BEGINNER';
+else if (level == 2) strLevel = 'EASY';
+else if (level == 3) strLevel = 'NORMAL';
+else if (level == 4) strLevel = 'EXPERT';
+else if (level == 5) strLevel = 'MASTERMIND';
+
+let score = 0;
+
     /////////////////////////////////////////////////////////////////////////
     /////////////////////   Creating GAME BOARD LAYOUT    ///////////////////
     ////////////////////////////////////////////////////////////////////////
+
+    const timerInput = LevelSettings[level][0]; // = 10 - time for solving puzzle in min;
+    const chipTypes = LevelSettings[level][1];  // = 12 -  Number of Chip Types at board
+    const nCP = LevelSettings[level][2]; // number of X-Paths in-Between // Total Between-Path num = 24;
+    const nSC = LevelSettings[level][3]; // number Of Sealed Chips
+    const nHC = LevelSettings[level][4]; // number Of HIDDEN Chips
+
     let pointerPos = {x: false, y:false};
     const player = {      // position of BLUE CHIP 
       pos: {y: 2, x: 3},
@@ -1001,6 +1089,8 @@ document.addEventListener('click', event => {
       if (respFreeChip.clicked()) {
           if ((xDigit(chipSet[player.pos.y][player.pos.x], 0) !== 2))
           switchChips();
+      } else if (respHelpButton.clicked()) {
+          gameState = 'pause';
       } else {
           respChipSet.forEach((row, y) => {
               row.forEach((val, x) => {
@@ -1010,13 +1100,19 @@ document.addEventListener('click', event => {
                 });
             });
       }
-  } else if ((gameState == 'pause') || (gameState == 'clue')) {
-    gameState = 'running';
-    update();
-  } else if ((gameState == 'alarm') || (gameState == 'victory') || (gameState == 'time-out')) {
-      if (respResetButton.clicked()) {
-        document.location.reload(true);
+  } else if (gameState == 'pause') {
+      if (respRestartButton.clicked()) document.location.reload(true);
+      else if (respExitButton.clicked()) window.location.replace("index.html");
+      else {
+          gameState = 'running';
+          update();
       }
+  } else if (gameState == 'clue') {
+      gameState = 'running';
+      update();
+  } else if ((gameState == 'alarm') || (gameState == 'victory') || (gameState == 'time-out')) {
+      if (respRestartButton.clicked()) document.location.reload(true);
+      else if (respExitButton.clicked()) window.location.replace("index.html");
   }
 }); // END of document.addEventListener('mousedown'
 
@@ -1048,7 +1144,7 @@ document.addEventListener('toucstart', event => {
     gameState = 'running';
     update();
   } else if ((gameState == 'alarm') || (gameState == 'victory') || ((gameState == 'time-out'))) {
-    if (respResetButton.clicked()) {
+    if (respHelpButton.clicked()) {
       document.location.reload(true);
     }
 }
