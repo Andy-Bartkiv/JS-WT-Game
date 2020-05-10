@@ -2,54 +2,251 @@
 <html lang="en">
 
 <style>
-  body {
-    background-image: url('Assets/BI-04.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-  }
+    body {
+        background-image: url('Assets/BI-04.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
 
-  .center {
+    .main-container {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        justify-content: center;
+        align-items: center;
+        height: 40vh;
+        color: ivory;
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-  }
+    .main-container>div {
+        margin: 10px;
+        width: 200px;
+        position: relative;
+    }
 
-  .button {
-    background-color: #4CAF50;
-    /* Green */
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
+    .scores {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 0px;
+        width: 100%;
+        font-size: 120%;
+        font-family: monospace;
+        font-weight: bold;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        border: none;
+        border-bottom: 2px solid #962d22;
+        color: white;
+    }
 
-    font-size: 16px;
+    #idLastScore {
+        font-weight: 100;
+        font-style: italic;
 
-    cursor: pointer;
-    border-radius: 4px;
-    transition-duration: 0.4s;
+    }
 
-  }
 
-  .button:hover {
-    background-color: white;
-    color: #4CAF50;
-    /* Green */
-  }
+    .scores:hover {
+        background-color: white;
+        color: #962d22;
+        font-weight: 900;
+    }
+
+
+    .button {
+        background-color: #4CAF50;
+        /* Green */
+        width: 100%;
+        border: none;
+        color: white;
+        padding: 30px 0px;
+        border-bottom: 2px solid #962d22;
+        text-align: center;
+        text-decoration: none;
+        font-size: 150%;
+        font-family: monospace;
+        font-weight: bold;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 4px;
+        transition-duration: 0.4s;
+
+    }
+
+    .button:hover {
+        background-color: white;
+        color: #962d22;
+        font-weight: 700;
+        /* Green #4CAF50 */
+    }
+
+
+
+    select {
+        width: 100%;
+        height: 50px;
+        font-size: 120%;
+        font-family: monospace;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        border: none;
+        border-bottom: 2px solid #962d22;
+        color: white;
+        appearance: none;
+        padding: 10px;
+        padding-left: 6px;
+        padding-right: 40px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+    }
+
+    /* For IE <= 11 */
+    select::-ms-expand {
+        display: none;
+    }
+
+    .select-icon {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 30px;
+        height: 36px;
+        pointer-events: none;
+        border: 2px solid #962d22;
+        padding-left: 5px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .select-icon svg.icon {
+        transition: fill 0.3s ease;
+        fill: white;
+    }
+
+    select:hover,
+    select:focus {
+        color: #c0392b;
+        background-color: white;
+        border-bottom-color: #DCDCDC;
+    }
+
+    select:hover~.select-icon,
+    select:focus~.select-icon {
+        background-color: white;
+        border-color: #DCDCDC;
+    }
+
+    select:hover~.select-icon svg.icon,
+    select:focus~.select-icon svg.icon {
+        fill: #c0392b;
+    }
+
+
+    @media screen and (max-width: 600px) {
+        .main-container {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            margin-top: 25px;
+        }
+
+        .main-container>div {
+            flex-flow: column nowrap;
+            margin: 25px;
+        }
+    }
 </style>
 
+
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Wellcome page </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
-<body>
-  <div class="center">
-    <button onclick="document.location = 'gameWT.html'" class="button">START the GAME</button>
-  </div>
+<body onload="displayScore()">
+    <div class="main-container">
+
+        <div class="scores">
+            <div id="idHighScore">HIGH SCORE:...00</div>
+            <div id="idLastScore">Last Score:...00</div>
+        </div>
+
+        <div>
+            <button onclick="document.location = 'gameWT.html'" class="button">START the GAME</button>
+        </div>
+
+        <div>
+            <select id="level" onchange="setLevel()">
+                <option value="0">TRAINEE......(00)</option>
+                <option value="1" selected>BEGINNER.....(19)</option>
+                <option value="2">EASY.........(36)</option>
+                <option value="3">NORMAL.......(51)</option>
+                <option value="4">EXPERT.......(64)</option>
+                <option value="5">MASTERMIND...(75)</option>
+            </select>
+            <div class="select-icon">
+                <svg focusable="false" viewBox="0 0 104 128" width="25" height="35" class="icon">
+                    <path
+                        d="m2e1 95a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm14 55h68v1e1h-68zm0-3e1h68v1e1h-68zm0-3e1h68v1e1h-68z">
+                    </path>
+                </svg>
+            </div>
+
+        </div>
+
+        <script>
+            function setLevel() {
+                // Check browser support
+                if (typeof (Storage) !== "undefined") {
+                    let currentLevel = document.getElementById("level").value;
+                    localStorage.setItem("currentLevel", currentLevel);
+                } else {
+                    alerrt("Sorry, your browser does not support Web Storage...");
+                }
+            }
+
+            function displayScore() {
+                // Check browser support
+                if (typeof (Storage) !== "undefined") {
+
+                    if (localStorage.getItem("lastScore") == null) localStorage.setItem("lastScore", 0)
+                    let lastScore = localStorage.getItem("lastScore");
+
+                    if (localStorage.getItem("highScore") == null) localStorage.setItem("highScore", 0)
+                    let hiScore = localStorage.getItem("highScore");
+                    if (lastScore > hiScore) localStorage.setItem("highScore", lastScore);
+
+                    if (localStorage.getItem("currentLevel") == null) localStorage.setItem("currentLevel", 1);
+                    document.getElementById("level").value = localStorage.getItem("currentLevel");
+
+                    // Retrieve
+                    if (hiScore < 10)
+                        document.getElementById("idHighScore").innerHTML = "HIGH SCORE:...0" + hiScore;
+                    else
+                        document.getElementById("idHighScore").innerHTML = "HIGH SCORE:..." + hiScore;
+
+                    if (lastScore < 10)
+                        document.getElementById("idLastScore").innerHTML = "Last Score:...0" + lastScore;
+                    else
+                        document.getElementById("idLastScore").innerHTML = "Last Score:..." + lastScore;
+
+                } else {
+                    alerrt("Sorry, your browser does not support Web Storage...");
+                }
+            }
+        </script>
+
 
 </body>
 
