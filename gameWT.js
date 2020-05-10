@@ -48,28 +48,15 @@ function popUpWindow(type = 'pause') {
   if (type == 'alarm') {  //////////////////////  ALARM
     context.fillStyle = "rgba(255,0,0,0.3)"
     context.fillRect(0, 0, canvas.width, canvas.height-107);  
-    context.font = "Bold 64px Monospace";
+    context.font = "48px telegrama";
     context.fillStyle = '#ff0';
     context.textAlign = "center";
-    context.fillText("! ! ! ALARM ! ! !", 640, 295-64*2);
-    context.fillText("! ! ! ALARM ! ! !", 640, 295);
-    context.fillText("! ! ! ALARM ! ! !", 640, 295+64*2);
-    context.fillText("! ! ! ALARM ! ! !", 640, 295+64*4);
-    /////////////////     RETURN & RESTART AREA and TEXT 
-    context.textAlign = "center";
-    context.fillStyle = '#0c0';
-    context.fillRect(352, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText(" TO EXIT ", 448, 750);
-    context.fillText("PRES HERE", 448, 780);
-    /// ----------------------- /////////////
-    context.fillStyle = '#0c0';
-    context.fillRect(738, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 835, 750);
-    context.fillText("TO RESTART", 835, 780);
+    context.fillText("! ! ! ALARM ! ! !", 640, 293-64*2);
+    context.fillText("! ! ! ALARM ! ! !", 640, 293);
+    context.fillText("! ! ! ALARM ! ! !", 640, 293+64*2);
+    context.fillText("! ! ! ALARM ! ! !", 640, 293+64*4);
+    
+    drawExitRestartButtons()
 
   } else if (type == 'clue') {  ////////////////    CLUE    /////////// 
     context.fillStyle = "rgba(85,85,85,0.35)"
@@ -80,11 +67,11 @@ function popUpWindow(type = 'pause') {
     context.fillStyle = '#ffd';
     context.fillRect(370, 8*32+3, 13*32, 5*32);
     context.textAlign = "center"; 
-    context.font = "32px Monospace";
+    context.font = "28px telegrama";
     context.fillStyle = '#100';
     context.fillText("Good job,", 578, 307);
     context.fillText("another phone tapped,", 578, 352);
-    context.fillText("you've got clue № " + String(clueCounter), 578, 392);
+    context.fillText("you've got clue N." + String(clueCounter), 578, 392);
     
   } else if (type == 'pause') { //////////////    PAUSE    ////////////////
     context.fillStyle = "rgba(85,85,85,0.35)"
@@ -92,66 +79,39 @@ function popUpWindow(type = 'pause') {
     context.fillStyle = '#555';
     context.fillRect(144, 32, 868, 614);
     context.fillStyle = '#0f0';
-    context.font = "48px Monospace";
+    context.font = "48px telegrama";
     context.textAlign = "center";
     context.fillText("    - - - GAME PAUSED - - -    ", 580, 112);
-    context.font = "30px Monospace";
+    context.font = "26px telegrama";
     context.fillText("left-click or press SPACE to continue", 580, 172);
     context.fillText("- use arrow keys or mouse bttn to select a chip,", 580, 331);
     context.fillText("that you want to replace from the circuit board", 580, 381);
     context.fillText("- press SPACE or click at the 'Spare' chip", 580, 491);
     context.fillText("on the bottom of the circuit board", 580, 541);
     context.fillText("to replace selected ('blue') chip", 580, 591);
-    /////////////////     RETURN & RESTART AREA and TEXT /////////////////
-    context.fillStyle = '#0c0';
-    context.fillRect(352, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText(" TO EXIT ", 448, 750);
-    context.fillText("PRES HERE", 448, 780);
-    /// ----------------------- /////////////
-    context.fillStyle = '#0c0';
-    context.fillRect(738, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 835, 750);
-    context.fillText("TO RESTART", 835, 780);
 
+    drawExitRestartButtons()
 
   } else if (type == 'time-out') {  //////////////// TIME - OUT  ////////////////////////////////////
     context.fillStyle = "rgba(255,255,200,0.85)"
     context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
-    context.font = "Bold 36px Monospace";
+    context.font = "Bold 36px telegrama";
     context.fillText("LEVEL: " + strLevel, 640, 350);
-    context.font = "36px Monospace";
+    context.font = "30px telegrama";
     context.textAlign = "left";
     context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
     context.fillText("All phones tapped:..... " + String(phoneCounter), 398, 463);
     context.fillStyle = 'red';
     context.fillText("Alarms triggered:...... " + String(alarmCounter), 398, 510);
-    context.fillText("MTIME EXPIRED:......... " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
+    context.fillText("TIME EXPIRED:.......... " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
     context.fillStyle = '#100';
-    context.fillText("Difficulty level:.... x " + String(level), 398, 607);
-    context.font = "Bold 36px Monospace";
+    context.fillText("DiffIculty level:.... x " + String(level), 398, 607);
+    context.font = "Bold 30px telegrama";
     context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
 
-    /////////////////     RETURN & RESTART AREA and TEXT 
-    context.textAlign = "center";
-    context.fillStyle = '#0c0';
-    context.fillRect(352, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText(" TO EXIT ", 448, 750);
-    context.fillText("PRES HERE", 448, 780);
-    /// ----------------------- /////////////
-    context.fillStyle = '#0c0';
-    context.fillRect(738, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 835, 750);
-    context.fillText("TO RESTART", 835, 780);
+    drawExitRestartButtons()
 
 
   } else if (type == 'victory') {  //////////////// VICTORY  /////////////////////////////////////
@@ -159,9 +119,9 @@ function popUpWindow(type = 'pause') {
     context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
-    context.font = "Bold 36px Monospace";
+    context.font = "Bold 30px telegrama";
     context.fillText("LEVEL: " + strLevel, 640, 350);
-    context.font = "36px Monospace";
+    context.font = "30px telegrama";
     context.textAlign = "left";
     context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
     context.fillText("All phones tapped:... + " + String(phoneCounter), 398, 463);
@@ -171,27 +131,32 @@ function popUpWindow(type = 'pause') {
     if (Math.trunc(timeRemain/1000/60 % 60) > 9)
          context.fillText("Minutes left:........ +" + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
     else context.fillText("Minutes left:........ + " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
-    context.fillText("Difficulty level:.... x " + String(level), 398, 607);
-    context.font = "Bold 36px Monospace";
+    context.fillText("DiffIculty level:.... x " + String(level), 398, 607);
+    context.font = "Bold 30px telegrama";
     context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
 
-    /////////////////     RETURN & RESTART AREA and TEXT 
-    context.textAlign = "center";
-    context.fillStyle = '#0c0';
-    context.fillRect(352, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText(" TO EXIT ", 448, 750);
-    context.fillText("PRES HERE", 448, 780);
-    /// ----------------------- /////////////
-    context.fillStyle = '#0c0';
-    context.fillRect(738, 720, 195, 70);
-    context.font = "Bold 28px Monospace";
-    context.fillStyle = '#000';
-    context.fillText("PRESS HERE", 835, 750);
-    context.fillText("TO RESTART", 835, 780);
+    drawExitRestartButtons()
   }
 } // END of function popUpWindows() // END 
+
+function drawExitRestartButtons() {
+      context.textAlign = "center";
+      context.fillStyle = '#0c0';
+      context.fillRect(352, 720, 195, 70);
+      context.fillStyle = '#000';
+      context.font = "Bold 26px telegrama";
+      context.fillText(" TO EXIT ", 448, 750);
+      context.font = "26px telegrama";
+      context.fillText("PRESS HERE", 448, 780);
+      /// ----------------------- /////////////
+      context.fillStyle = '#0c0';
+      context.fillRect(738, 720, 195, 70);
+      context.font = "26px telegrama";
+      context.fillStyle = '#000';
+      context.fillText("PRESS HERE", 835, 750);
+      context.font = "Bold 26px telegrama";
+      context.fillText("TO RESTART", 835, 780);
+}
 
 // time formating to view '00:00:00'
 function timeFormat(tR) {
@@ -212,10 +177,10 @@ function drawNewTimer(tR) {
     context.fillStyle = '#b00'
   };
   context.fillRect(1040, 726, 200, 60);
-  context.font = "38px Monospace";
+  context.font = "34px telegrama";
   context.fillStyle = '#0f0';
   context.textAlign = "left";
-  context.fillText(strTimer, 1056, 767);
+  context.fillText(strTimer, 1049, 768);
 }
 
 // creating layout for PATH elements  6 х 9
@@ -550,23 +515,6 @@ function switchChips() {
   freeChip = tempChip - 100;
 }
 
-// - - - OBSOLETE - - - // display layout for values PATH elements 
-function drawPathSet(matrix) {
-  // context.font = "20px Arial";
-  // context.fillStyle = '#ff0';
-  // context.textAlign = "center";
-  // let h = matrix.length;
-  // let tile;
-  // for (let i = 0; i < h; i++) {
-  //   w = matrix[i].length;
-  //   for (let j = 0; j < w; j++) {
-  //   //   if (tile != path00) context.drawImage(tile, 234 + 128 * j, 51 + 64*i);
-  // context.fillText(matrix[i][j], 260 + 128 * j, 90 + 64*i);
-
-  //   }
-  // }
-}
-
 // Tile identification function
 function tileIdent(tile) {
   let mIJ = tile % 1000;
@@ -661,10 +609,10 @@ function drawBoard() {
 
     context.fillStyle = 'black';
     context.fillRect(30, 726, 190, 60);
-    context.font = "38px Monospace";
+    context.font = "32px telegrama";
     context.fillStyle = '#0f0';
     context.textAlign = "left";
-    context.fillText("- HELP -", 42, 767);
+    context.fillText("- HELP -", 38, 768);
 
     for (let i = 0; i < chipSet.length; i++) {
       for (let j = 0; j < chipSet[i].length; j++) {
