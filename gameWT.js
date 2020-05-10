@@ -214,7 +214,7 @@ function drawNewTimer(tR) {
   context.fillRect(1040, 726, 200, 60);
   context.font = "38px Monospace";
   context.fillStyle = '#0f0';
-  context.textAlign = "start";
+  context.textAlign = "left";
   context.fillText(strTimer, 1056, 767);
 }
 
@@ -663,6 +663,7 @@ function drawBoard() {
     context.fillRect(30, 726, 190, 60);
     context.font = "38px Monospace";
     context.fillStyle = '#0f0';
+    context.textAlign = "left";
     context.fillText("- HELP -", 42, 767);
 
     for (let i = 0; i < chipSet.length; i++) {
@@ -914,15 +915,6 @@ function update(time = 0) {
 
   drawNewTimer(timeRemain);
   timeRemain -= deltaTime;
-
-///////////  POP UP WINDOWS ON EVENTS /////////////////////////////////////
-  
-  // context.font = "64px Arial";
-  // context.fillStyle = '#ff0';
-  // context.textAlign = "center";
-
-  // context.fillText(String(Math.round(pointerPos.x)), 60, 50);
-  // context.fillText(String(Math.round(pointerPos.y)), 230, 50);
 
 //////////  ALARM State ???
   if (targetChipSet.includes(10)) {
