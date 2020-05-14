@@ -6,6 +6,15 @@
         font-family: telegrama;
         src: url('Assets/telegrama_raw.ttf');
     }
+    canvas {
+        height: 95vh;
+        }
+
+        body {
+            background: #202020;
+            font-family: telegrama;
+            text-align: center;
+        }
 </style>
 
 <head>
@@ -13,28 +22,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> WIRE TAP GAME </title>
 
-    <!-- COMMENTS for HTML-->
-    <style>
-        /* COMMENTS FOR CSS*/
-        body {
-            background: #202020;
-            color: #fff;
-            font-family: telegrama;
-            font-size: 1.5em;
-            text-align: center;
-        }
-
-        canvas {
-            /* border: solid 2px #0f0;
-       */
-            height: 95vh;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- images LIBRARY-->
+    
     <canvas id="wiretap" width='1280' height='800'></canvas>
+    
+    <!-- images LIBRARY-->
     <div id="img-library" style="display:none;">
 
         <img id="board" src="Assets/Board-01.png">
@@ -74,7 +68,9 @@
         <img id="chip-62" src="Assets/Chip-62.png">
 
     </div>
+
     <script src="gameWT.js"></script>
+
 </body>
 
 </html>
