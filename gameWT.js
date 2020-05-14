@@ -42,10 +42,43 @@ const chip60 = document.getElementById('chip-60');
 const chip61 = document.getElementById('chip-61');
 const chip62 = document.getElementById('chip-62');
 
+// Spot Light effect at MASTERMIND LVL sptLght = TRUE
+function spotLight(x, y) {
+  context.beginPath();
+  context.arc(x, y, 1000, 0, 2*Math.PI);
+  context.lineWidth = 1650;
+  context.strokeStyle = "rgba(0,0,0,0.95)";
+  context.stroke();
+ 
+  for (let i=2; i < 51; i+=2) {
+    context.beginPath();
+    context.arc(x, y, 175-i/2, 0, 2*Math.PI);
+    context.lineWidth = i;
+    context.strokeStyle = "rgba(0,0,0,0.05)";
+    context.stroke();
+  }
+
+}
+
+// Update HiScore (Browser Local Storage) if player scored more
+function updateHighScore() {
+  let lastScore = localStorage.getItem("lastScore");
+  let hiScore = localStorage.getItem("highScore");
+  if (lastScore > hiScore) {
+      hiScore = lastScore;
+      localStorage.setItem("highScore", hiScore);
+      if (hiScore < 10)
+          document.getElementById("idHighScore").innerHTML = "HIGH SCORE:...0" + hiScore;
+      else
+          document.getElementById("idHighScore").innerHTML = "HIGH SCORE:..." + hiScore;
+  }
+}
+
 // pop-up message Window display
 function popUpWindow(type = 'pause') {
 
   if (type == 'alarm') {  //////////////////////  ALARM
+    if (sptLght) drawAll();
     context.fillStyle = "rgba(255,0,0,0.3)"
     context.fillRect(0, 0, canvas.width, canvas.height-107);  
     context.font = "48px telegrama";
@@ -55,25 +88,31 @@ function popUpWindow(type = 'pause') {
     context.fillText("! ! ! ALARM ! ! !", 640, 293);
     context.fillText("! ! ! ALARM ! ! !", 640, 293+64*2);
     context.fillText("! ! ! ALARM ! ! !", 640, 293+64*4);
-    
     drawExitRestartButtons()
 
   } else if (type == 'clue') {  ////////////////    CLUE    /////////// 
+    if (sptLght) {
+      drawAll();
+      context.fillStyle = "rgba(0,0,0,0.9)"
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
     context.fillStyle = "rgba(85,85,85,0.35)"
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = '#555'; /// 555
     context.fillRect(144, 32, 868, 614);
-
-    context.fillStyle = '#ffd';
-    context.fillRect(370, 8*32+3, 13*32, 5*32);
     context.textAlign = "center"; 
     context.font = "28px telegrama";
-    context.fillStyle = '#100';
+    context.fillStyle = '#0f0';
     context.fillText("Good job,", 578, 307);
     context.fillText("another phone tapped,", 578, 352);
-    context.fillText("you've got clue N." + String(clueCounter), 578, 392);
+    context.fillText("you've got clue N." + String(clueCounter), 578, 397);
     
   } else if (type == 'pause') { //////////////    PAUSE    ////////////////
+    if (sptLght) {
+      drawAll();
+      context.fillStyle = "rgba(0,0,0,0.95)"
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
     context.fillStyle = "rgba(85,85,85,0.35)"
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = '#555';
@@ -89,20 +128,20 @@ function popUpWindow(type = 'pause') {
     context.fillText("- press SPACE or click at the 'Spare' chip", 580, 491);
     context.fillText("on the bottom of the circuit board", 580, 541);
     context.fillText("to replace selected ('blue') chip", 580, 591);
-
     drawExitRestartButtons()
 
   } else if (type == 'time-out') {  //////////////// TIME - OUT  ////////////////////////////////////
+    if (sptLght) drawAll();
     context.fillStyle = "rgba(255,255,200,0.85)"
     context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
-    context.font = "Bold 36px telegrama";
-    context.fillText("LEVEL: " + strLevel, 640, 350);
+    context.font = "Bold 30px telegrama";
+    context.fillText("LEVEL: " + strLevel, 655, 350);
     context.font = "30px telegrama";
     context.textAlign = "left";
     context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
-    context.fillText("All phones tapped:..... " + String(phoneCounter), 398, 463);
+    context.fillText("All phones tapped:..... " + "0", 398, 463);
     context.fillStyle = 'red';
     context.fillText("Alarms triggered:...... " + String(alarmCounter), 398, 510);
     context.fillText("TIME EXPIRED:.......... " + String(Math.trunc(timeRemain/1000/60 % 60)), 398, 558);
@@ -110,17 +149,17 @@ function popUpWindow(type = 'pause') {
     context.fillText("DiffIculty level:.... x " + String(level), 398, 607);
     context.font = "Bold 30px telegrama";
     context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
-
     drawExitRestartButtons()
 
 
   } else if (type == 'victory') {  //////////////// VICTORY  /////////////////////////////////////
+    if (sptLght) drawAll();
     context.fillStyle = "rgba(255,255,200,0.85)"
     context.fillRect(367, 290, 552, 200 + 220);
     context.fillStyle = '#100';
     context.textAlign = "center";
     context.font = "Bold 30px telegrama";
-    context.fillText("LEVEL: " + strLevel, 640, 350);
+    context.fillText("LEVEL: " + strLevel, 655, 350);
     context.font = "30px telegrama";
     context.textAlign = "left";
     context.fillText("Clues received:......   " + String(clueCounter), 398, 415);
@@ -134,11 +173,11 @@ function popUpWindow(type = 'pause') {
     context.fillText("DiffIculty level:.... x " + String(level), 398, 607);
     context.font = "Bold 30px telegrama";
     context.fillText("TOTAL SCORE:........ = " + String(score), 398, 678);
-
     drawExitRestartButtons()
   }
 } // END of function popUpWindows() // END 
 
+// drawing ugly green buttons EXIT and RESTART
 function drawExitRestartButtons() {
       context.textAlign = "center";
       context.fillStyle = '#0c0';
@@ -158,7 +197,7 @@ function drawExitRestartButtons() {
       context.fillText("TO RESTART", 835, 780);
 }
 
-// time formating to view '00:00:00'
+// time formating to '00:00:00'
 function timeFormat(tR) {
   let strTimer = '00:00:00'
   let m = Math.trunc(tR/1000/60 % 60);
@@ -235,8 +274,7 @@ function createPathSet(w, h) {
       } // inner j cycle END
 
     }  // if (i%2 == 0) statement END
-  } // For i cycle END
-
+  } // END for i cycle END
   return matrix;
 } // Function END
 // creating layout for LOGIC CHIP elements 7 х 5
@@ -622,6 +660,15 @@ function drawBoard() {
       }   
     }   
 }
+// Drawing all elements of Game Board
+function drawAll() {
+    drawBoard();  
+    drawChipSet(chipSet);
+    drawFreeChip();
+    drawSignalCord();
+    drawTargetChipSet(targetChipSet);
+    drawNewTimer(timeRemain);
+  }
 
 /////////// CORD ANIMATION /////////////////////////////////
 // Cord types creation
@@ -785,7 +832,7 @@ function getMousePosition(canvas, evt) {
   };
 }
 
-// Touch Area CONSTRUCTOR
+// Clck Area CONSTRUCTOR
 function component(x, y, width, height) {
   this.width = width;
   this.height = height;
@@ -813,7 +860,7 @@ function component(x, y, width, height) {
   }
 }
 
-// Touch Area INIT using Constractor
+// Click Area INIT using Constractor
 function respChipPosition() {
 
   respHelpButton = new component(28, 720, 195, 70);
@@ -834,6 +881,7 @@ function respChipPosition() {
     }
   }
 }
+
 ////////////////////////////////////////////////////////////////
 // Main GAME LOOP including countdown time calculation    /////
 ///////////////////////////////////////////////////////////////
@@ -851,18 +899,20 @@ function update(time = 0) {
   if (aP>3) aP = 0; // Animation Phase Counter Reset
 
 // Drawing Board, Timer, Logic Chips, Target Chips, Signal Cords, 
-  drawBoard();  
-  drawChipSet(chipSet);
-  drawFreeChip();
-  signalSet = calculateSignalSet(signalSet); // recalculation state of Signals
-  drawSignalCord();
+drawBoard();  
+drawChipSet(chipSet);
+drawFreeChip();
+signalSet = calculateSignalSet(signalSet); // recalculation state of Signals
+drawSignalCord();
 
 // recalculation state of Target Chips
-  targetChipSet = calculateTagetState(targetChipSet);
-  drawTargetChipSet(targetChipSet);
+targetChipSet = calculateTagetState(targetChipSet);
+drawTargetChipSet(targetChipSet);
 
-  drawNewTimer(timeRemain);
-  timeRemain -= deltaTime;
+drawNewTimer(timeRemain);
+timeRemain -= deltaTime;
+
+if (sptLght) spotLight(pointerPos.x, pointerPos.y);
 
 //////////  ALARM State ???
   if (targetChipSet.includes(10)) {
@@ -897,6 +947,8 @@ function update(time = 0) {
     } else if (gameState == 'victory') {
         score = level*(clueCounter + phoneCounter - alarmCounter + Math.trunc(timeRemain/1000/60 % 60));
         localStorage.setItem("lastScore", score);
+        if (localStorage.getItem("highScore") < score)
+            localStorage.setItem("highScore", score);
         popUpWindow('victory');      
     } else if (timeRemain <= 0) {
         score = level*(clueCounter);
@@ -931,14 +983,15 @@ const LevelSettings = [
       [7, 12, 12, 6, 20], // 4
       [6, 12, 16, 12, 60] // 5
       ]
-
 const level = localStorage.getItem("currentLevel");
-let strLevel = 'TRAINEE';
-if (level == 1) strLevel = 'BEGINNER';
-else if (level == 2) strLevel = 'EASY';
-else if (level == 3) strLevel = 'NORMAL';
-else if (level == 4) strLevel = 'EXPERT';
-else if (level == 5) strLevel = 'MASTERMIND';
+let strLevel = {
+  0: 'TRAINEE........<00>',
+  1: 'BEGINNER.......<19>',
+  2: 'EASY...........<36>',
+  3: 'NORMAL.........<51>',
+  4: 'EXPERT.........<64>',
+  5: 'MASTERMIND.....<75>'
+}[level];
 
 let score = 0;
 
@@ -951,6 +1004,7 @@ let score = 0;
     const nCP = LevelSettings[level][2]; // number of X-Paths in-Between // Total Between-Path num = 24;
     const nSC = LevelSettings[level][3]; // number Of Sealed Chips
     const nHC = LevelSettings[level][4]; // number Of HIDDEN Chips
+    const sptLght = (level == 5) ? true : false; // Turn on Spot Light Mode at MASTERMIND
 
     let pointerPos = {x: false, y:false};
     const player = {      // position of BLUE CHIP 
@@ -972,8 +1026,6 @@ let score = 0;
     let signalSet = createSignalSet(14, 10);    // Init of Signal Matrix
     chipSet = correctChipSet();     // Correction of Logic Chips Layout to gain 0's output
     respChipPosition();              
-
-
 
 // KEYBOARD CONTROLS:////////////////////////////////////////////
 //                    arrows: to move blue chip
@@ -1023,6 +1075,10 @@ document.addEventListener('keydown', event => {
 
 ///////////////////  MOUSE EVENTS /////////////////////////
 
+document.addEventListener('mousemove', event => {
+  pointerPos = getMousePosition(canvas, event);
+});
+
 document.addEventListener('click', event => {
   pointerPos = getMousePosition(canvas, event);
   if (gameState == 'running')  {
@@ -1056,44 +1112,13 @@ document.addEventListener('click', event => {
   }
 }); // END of document.addEventListener('mousedown'
 
-document.addEventListener('mouseup', event => {
-  pointerPos.x = false;
-  pointerPos.y = false;
-}); // END of document.addEventListener('mouseup'
+//document.addEventListener('mouseup', event => {
+  // pointerPos.x = false;
+  // pointerPos.y = false;
+//}); // END of document.addEventListener('mouseup')
 
-/////////////////   TOUCH-PAD Events  /////////////////////
 
-document.addEventListener('toucstart', event => {
-  // pointerPos = getMousePosition(canvas, event);
-  pointerPos.x = e.changedTouches[0].clientX;
-  pointerPos.y = e.changedTouches[0].clientY;
-  if (gameState == 'running')  {
-      if (respFreeChip.clicked()) {
-          if ((xDigit(chipSet[player.pos.y][player.pos.x], 0) !== 2))
-          switchChips();
-      } else {
-          respChipSet.forEach((row, y) => {
-              row.forEach((val, x) => {
-                  if (val.clicked()) {
-                      moveBlueChip(x - player.pos.x, y - player.pos.y);
-                  }
-                });
-            });
-      }
-  } else if ((gameState == 'pause') || (gameState == 'clue')) {
-    gameState = 'running';
-    update();
-  } else if ((gameState == 'alarm') || (gameState == 'victory') || ((gameState == 'time-out'))) {
-    if (respHelpButton.clicked()) {
-      document.location.reload(true);
-    }
-}
-}); // END of document.addEventListener('touchstart')
-
-document.addEventListener('touchend', event => {
-  pointerPos.x = false;
-  pointerPos.y = false;
-}); // END of document.addEventListener('touchend'
 
 // MAIN GAME LOOP Run
+
 update();
