@@ -180,9 +180,127 @@ select:focus~.select-icon svg.icon {
     fill: #c0392b;
 }
 
+/*INFO PAGE STYLING*/
 
-@media screen and (max-width: 600px) {
-    .main-container {
+
+
+#navbar {
+    position: fixed;
+    min-width: 190px;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 100%;
+    border-right: solid;
+    border-color: rgba(0, 22, 22, 0.4);
+}
+
+header {
+    color: black;
+    margin: 10px;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: thin;
+}
+
+#main-doc header {
+    text-align: left;
+    margin: 0px;
+}
+
+#navbar ul {
+    height: 88%;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#navbar li {
+    color: #4d4e53;
+    border-top: 1px solid;
+    list-style: none;
+    position: relative;
+    width: 100%;
+}
+
+#navbar a {
+    display: block;
+    padding: 10px 25px;
+    color: #4d4e53;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#return_bttn {
+    background-color: #4CAF50;
+    font-size: 0.9em;
+    color: ivory !important;
+    transition-duration: 0.3s;
+}
+
+#return_bttn:hover {
+    background-color: ivory;
+    color: #962d22 !important;
+}
+
+#main-doc {
+    position: absolute;
+    margin-left: 210px;
+    padding: 20px;
+    margin-bottom: 110px;
+}
+
+section article {
+    color: #4d4e53;
+    margin: 15px;
+    font-size: 0.96em;
+}
+
+section li {
+    margin: 15px 0px 0px 20px;
+}
+
+#Circuit_Board_img {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#Circuit_Board_img p {
+    padding-left: 20px;
+    margin: auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #4CAF50;
+
+    padding: 5px;
+}
+
+.grid-header {
+    border: 0.5px solid rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    font-size: 1.1em;
+    color: ivory;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 0.5px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    font-size: 1em;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) {
+            /* For mobile phones 600: */
+/*INDEX PAGE*/
+    .main-container { 
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
@@ -190,6 +308,38 @@ select:focus~.select-icon svg.icon {
         height: 50vh;
         margin-top: 25px;
     }
+/*INFO PAGE*/
+    #navbar ul {
+        border: 1px solid;
+        height: 267px;
+    }
 
+    #navbar {
+        background-color: rgba(255, 255, 210, 1);
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-height: 335px;
+        border: none;
+        z-index: 1;
+        border-bottom: 2px solid;
+    }
 
+    #main-doc {
+        position: relative;
+        margin-left: 0px;
+        margin-top: 330px;
+    }
+
+    #Circuit_Board_img {
+        flex-direction: column;
+    }
+
+    #Circuit_Board_img>p {
+        padding-left: 0px;
+        padding-top: 10px;
+        text-align: justify;
+    }
 }

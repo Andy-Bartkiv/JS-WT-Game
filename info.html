@@ -1,139 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-    @font-face {
-        font-family: telegrama;
-        src: url('Assets/telegrama_raw.ttf');
-    }
-
     html,
     body {
-        background: ivory;
+        background: ivory !important;
         font-family: sans-serif;
         min-width: 190px;
         color: #4d4e53;
         line-height: 1.5;
     }
-
-
-    #navbar {
-        position: fixed;
-        min-width: 190px;
-        top: 0px;
-        left: 0px;
-        width: 200px;
-        height: 100%;
-        border-right: solid;
-        border-color: rgba(0, 22, 22, 0.4);
-    }
-
-    header {
-        color: black;
-        margin: 10px;
-        text-align: center;
-        font-size: 1.8em;
-        font-weight: thin;
-    }
-
-    #main-doc header {
-        text-align: left;
-        margin: 0px;
-    }
-
-    #navbar ul {
-        height: 88%;
-        padding: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    #navbar li {
-        color: #4d4e53;
-        border-top: 1px solid;
-        list-style: none;
-        position: relative;
-        width: 100%;
-    }
-
-    #navbar a {
-        display: block;
-        padding: 10px 25px;
-        color: #4d4e53;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    #main-doc {
-        position: absolute;
-        margin-left: 210px;
-        padding: 20px;
-        margin-bottom: 110px;
-    }
-
-    section article {
-        color: #4d4e53;
-        margin: 15px;
-        font-size: 0.96em;
-    }
-
-    section li {
-        margin: 15px 0px 0px 20px;
-    }
-
-    #Circuit_Board_img {
-        display: flex; 
-        flex-direction: row;
-        
-    }
-
-    #Circuit_Board_img p{
-        padding-left: 20px; 
-        margin: auto;
-    }
-
-
-    @media only screen and (max-width: 600px) {
-        /* For mobile phones 600: */
-        #navbar ul {
-            border: 1px solid;
-            height: 207px;
-        }
-
-        #navbar {
-            background-color:rgba(255, 255, 210, 1);
-            position: absolute;
-            top: 0;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            max-height: 275px;
-            border: none;
-            z-index: 1;
-            border-bottom: 2px solid;
-        }
-
-        #main-doc {
-            position: relative;
-            margin-left: 0px;
-            margin-top: 270px;
-        }
-        #Circuit_Board_img {
-            flex-direction: column;
-        }
-
-        #Circuit_Board_img > p{
-            padding-left: 0px;
-            padding-top: 10px;
-            text-align: justify;
-        }
-    }
-
 </style>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Info & Rules</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -145,188 +27,196 @@
             <li><a class="nav-link" href="#Section_3">Signal Paths</a></li>
             <li><a class="nav-link" href="#Section_4">Target Chips</a></li>
             <li><a class="nav-link" href="#Section_5">Logic Chips</a></li>
-            <li><a class="nav-link" href="index.html" style="background-color: #4CAF50;"><b>BACK to <br> Game Menu</b></a></li>
-        </ul> 
+            <li><a class="nav-link" id='return_bttn' href="index.html"><b>BACK to Game Menu</b></a></li>
+        </ul>
     </nav>
 
     <main id="main-doc">
 
-        <section class="main-section" id="#Section_1">
+        <section class="main-section" id="Section_1">
             <header>Game Introduction</header>
-            <p>Wire-Tapping (Elecronics) game was one of four mini-games, which made up bulk of the gameplay of the classic Microprose / Sid Meier game "Covert Action", released in 1990.</p>
-            <p>For more info about original Sid Meier's Covert Action game visit <a href="https://en.wikipedia.org/wiki/Sid_Meier%27s_Covert_Action" target="_blank">Wikipedia</a> and <a href="https://covertaction.fandom.com/wiki/Covert_Action_Wiki" target="_blank">Fandom Wiki</a></p>
-            <p>The Electronics Mini-Game is a logic puzzle. In the game, a view of a circuit board shows electricity flowing through a large set of Elrctronic Chips which can allow it to flow through, change its direction, or cut it completely. Each chip has a different effect.</p>
+            <p>Wire-Tapping (Elecronics) game was one of four mini-games, which made up bulk of the gameplay of the
+                classic Microprose / Sid Meier game "Covert Action", released in 1990.</p>
+            <p>For more info about original Sid Meier's Covert Action game visit <a
+                    href="https://en.wikipedia.org/wiki/Sid_Meier%27s_Covert_Action" target="_blank">Wikipedia</a> and
+                <a href="https://covertaction.fandom.com/wiki/Covert_Action_Wiki" target="_blank">Fandom Wiki</a></p>
+            <p>The Electronics Mini-Game is a logic puzzle. In the game, a view of a circuit board shows electricity
+                flowing through a large set of Elrctronic Chips which can allow it to flow through, change its
+                direction, or cut it completely. Each chip has a different effect.</p>
             <div id='Circuit_Board_img'>
                 <img src="Assets/Circuit Board.png" alt="Circuit Board" style="height: 100%;">
-                <p>When doing electronics work, the screen shows a close-up of a circuit board. It is covered with chips, and there are signal traces running across the board and through those chips.
+                <p>When doing electronics work, the screen shows a close-up of a circuit board. It is covered with
+                    chips, and there are signal traces running across the board and through those chips.
                 </p>
             </div>
-            <p>The game is based on the ability to logically determine which wire goes where, and decide which Electronic Chip should be installed at each position on the circuit board in order to let electricity flow to the right places and not flow to the wrong places.</p>                <p>From the Player's point-of-view, the Electronics Mini-Game requires good logic skills, and being able to quickly analyze the logical pattern on the circuit board.</p>
+            <p>The game is based on the ability to logically determine which wire goes where, and decide which
+                Electronic Chip should be installed at each position on the circuit board in order to let electricity
+                flow to the right places and not flow to the wrong places.</p>
+            <p>From the Player's point-of-view, the Electronics Mini-Game requires good logic skills, and being able to
+                quickly analyze the logical pattern on the circuit board.</p>
         </section>
 
-        <section class="main-section" id="#Section_2">
+        <section class="main-section" id="Section_2">
             <header>Objectives and Rules</header>
-            <p>The Electronics game begins with the chips on the board arranged in a way that the wires on the right-hand side (those going into the Target Chips) are carrying no electricity into the Phone chips, and no electricity into the Alarm chips.</p>
-            <p>The Player's task is to alter the board so that the Paths running into the Phone chips will carry electricity. However, the game is instantly "lost" if electricity is ever passed into the Alarm chips.</p>
-            <p>The game is played by picking up Chips from the bottom of circuit board, and placing them elsewhere to change the flow of electricity. Initially the player has one random "spare" chip in his hand, which he can replace with any other chip on the board. The chip that was picked up can then be placed elsewhere, and so on until the game is either won or lost.</p>
-            <p>Difficulty is primarily reflected in the types of Logic Chips that can appear during the Mini-Game. On the easy difficulty levels, only the basic 6 chips on the table will appear. They are the simplest chips to work with, as they perform relatively straight-forward logical operations. The higher the difficulty of the Mini-Game, the more varied selection of Logic Chips will be placed on the circuit board. This makes it more difficult to understand what's happening to the Electricity as it makes its way towards the Target Chips.</p>
-            <p>In addition, this game is limited in time - you only have anywhere from 6 to 12 minutes to complete the mini-game, otherwise it ends with a semi-failure.</p>
+            <p>The Electronics game begins with the chips on the board arranged in a way that the wires on the
+                right-hand side (those going into the Target Chips) are carrying no electricity into the Phone chips,
+                and no electricity into the Alarm chips.</p>
+            <p>The Player's task is to alter the board so that the Paths running into the Phone chips will carry
+                electricity. However, the game is instantly "lost" if electricity is ever passed into the Alarm chips.
+            </p>
+            <p>The game is played by picking up Chips from the bottom of circuit board, and placing them elsewhere to
+                change the flow of electricity. Initially the player has one random "spare" chip in his hand, which he
+                can replace with any other chip on the board. The chip that was picked up can then be placed elsewhere,
+                and so on until the game is either won or lost.</p>
+            <p>Difficulty is primarily reflected in the types of Logic Chips that can appear during the Mini-Game. On
+                the easy difficulty levels, only the basic 6 chips on the table will appear. They are the simplest chips
+                to work with, as they perform relatively straight-forward logical operations. The higher the difficulty
+                of the Mini-Game, the more varied selection of Logic Chips will be placed on the circuit board. This
+                makes it more difficult to understand what's happening to the Electricity as it makes its way towards
+                the Target Chips.</p>
+            <p>In addition, this game is limited in time - you only have anywhere from 6 to 12 minutes to complete the
+                mini-game, otherwise it ends with a semi-failure.</p>
         </section>
 
         <section class="main-section" id="Section_3">
             <header>Signal Paths</header>
-            <p>Twisting and weaving their way across the board are 10 "Signal Paths". These are essentially like wires, which conduct electricity from one side of the board to the other.</p>
+            <p>Twisting and weaving their way across the board are 10 "Signal Paths". These are essentially like wires,
+                which conduct electricity from one side of the board to the other.</p>
             <div style="display: flex; flex-direction: row;">
                 <img src="Assets/5VandGND.png" alt="5V and GND" style="height: 100%;">
-                <p style="padding-left: 20px; margin: auto;">All Paths originate in two connector points near the bottom-left corner of the screen. These are marked with the letters "+5V." and "GND." One path originates from each connector.<br>The Paths coming out of the "GND" connector are colored green. This indicates that they are not carrying any electricity. <br>The red-and-white paths are coming out of the "+5V" connector, and are thus carrying electricity.</p>
+                <p style="padding-left: 20px; margin: auto;">All Paths originate in two connector points near the
+                    bottom-left corner of the screen. These are marked with the letters "+5V." and "GND." One path
+                    originates from each connector.<br>The Paths coming out of the "GND" connector are colored green.
+                    This indicates that they are not carrying any electricity. <br>The red-and-white paths are coming
+                    out of the "+5V" connector, and are thus carrying electricity.</p>
             </div>
-            <p>Immediately once they come out of these connectors, each of these two Paths splits into 5 paths, giving us the total 10 Paths that run across the board.</p>
+            <p>Immediately once they come out of these connectors, each of these two Paths splits into 5 paths, giving
+                us the total 10 Paths that run across the board.</p>
         </section>
 
         <section class="main-section" id="Section_4">
             <header>Target Chips</header>
-            <p>On the right-most side of the board are the 10 Target Chips. This is where all the Paths reach once they've made their journey across the board. Each Path ends in one Target Chip.</p>
+            <p>On the right-most side of the board are the 10 Target Chips. This is where all the Paths reach once
+                they've made their journey across the board. Each Path ends in one Target Chip.</p>
             <div style="display: flex; flex-direction: row;">
                 <img src="Assets/Alarm Chip.png" alt="Alarm Chip" style="height: 100%; padding-right: 5px;">
                 <img src="Assets/Phone chip.png" alt="Phone Chip" style="height: 100%;">
-                <p style="padding-left: 20px; margin: auto;">Exit chips are marked with a symbol to let you know their purpose. Chips leading to the Alarm are marked with a bell. Chips marked with a phone icon generates victory points = "clues" once electricity is passed into them.</p>
+                <p style="padding-left: 20px; margin: auto;">Exit chips are marked with a symbol to let you know their
+                    purpose. Chips leading to the Alarm are marked with a bell. Chips marked with a phone icon generates
+                    victory points = "clues" once electricity is passed into them.</p>
             </div>
-            <p>When the game begins, the board is configured in such a way that the Alarm Chips and Phone Chips are "deactivated" - the Paths running into them are green, meaning they carry no electric current.</p>
+            <p>When the game begins, the board is configured in such a way that the Alarm Chips and Phone Chips are
+                "deactivated" - the Paths running into them are green, meaning they carry no electric current.</p>
             <p>As long as Alarm Chips stays that way, the Alarm won't be triggered.</p>
-            <p>Your goal is to connect the electricity reaching all Phone chips by turning those Paths red, signifying that the phones are all connected properly.</p>
+            <p>Your goal is to connect the electricity reaching all Phone chips by turning those Paths red, signifying
+                that the phones are all connected properly.</p>
         </section>
 
         <section class="main-section" id="Section_5">
             <header>Logic Chips</header>
-            <p>On the main part of the board is a set of 35 Logic Chips. These are arranged in 5 rows of 7 chips each. They straddle the Paths so that each Logic Ship has two Paths passing through it from left to right, one "Top Path" and one "Bottom Path".</p>          
-            <p>Each Logic Chip is also marked with a symbol. The symbol indicates the "logical operation" performed by that chip: It takes input from both paths on the left, processes it in some way, and puts out electricity on the right paths as appropriate. In other words, the chip decides which of the two paths exiting out its right side will carry electricity, if at all, based on what's coming in on its left.</p>
-            <p>There are exactly 12 different kinds of Logic Chips that can appear on a circuit board. Each chip performs a different "logical operation". It acts based on the state of the two wires coming in its left side, producing (or withholding) electricity on the two wires coming out the right side. To determine what logical operation is performed by any Logic Chip, it is necessary to identify the symbol emblazoned on that chip. These symbols are often self-explanatory, and can easily be identified.</p>
+            <p>On the main part of the board is a set of 35 Logic Chips. These are arranged in 5 rows of 7 chips each.
+                They straddle the Paths so that each Logic Ship has two Paths passing through it from left to right, one
+                "Top Path" and one "Bottom Path".</p>
+            <p>Each Logic Chip is also marked with a symbol. The symbol indicates the "logical operation" performed by
+                that chip: It takes input from both paths on the left, processes it in some way, and puts out
+                electricity on the right paths as appropriate. In other words, the chip decides which of the two paths
+                exiting out its right side will carry electricity, if at all, based on what's coming in on its left.</p>
+            <p>There are exactly 12 different kinds of Logic Chips that can appear on a circuit board. Each chip
+                performs a different "logical operation". It acts based on the state of the two wires coming in its left
+                side, producing (or withholding) electricity on the two wires coming out the right side. To determine
+                what logical operation is performed by any Logic Chip, it is necessary to identify the symbol emblazoned
+                on that chip. These symbols are often self-explanatory, and can easily be identified.</p>
             <h3>Stuck Chips</h3>
             <div style="display: flex; flex-direction: row;">
                 <img src="Assets/Stuck Chip.png" alt="Stuck Chip" style="height: 100%;">
-                
-                <p style="padding-left: 20px; margin: auto;">Regardless of the current Mini-Game Difficulty, the 5 right-most Logic Chips on the circuit board cannot be moved. They are called "Stuck Chips", and are surrounded by a thick grey border to distinguish them from all the other Logic Chips.</p>
+
+                <p style="padding-left: 20px; margin: auto;">Regardless of the current Mini-Game Difficulty, the 5
+                    right-most Logic Chips on the circuit board cannot be moved. They are called "Stuck Chips", and are
+                    surrounded by a thick grey border to distinguish them from all the other Logic Chips.</p>
             </div>
-            <p>A Player cannot pick up Stuck Chips, nor can he place any other chips in their stead. He will just need to take them into account and work around them.</p>
-            <p>On higher difficulty levels, there are more Stuck Chips scattered across the board, making the mini-game more complicated.</p>
+            <p>A Player cannot pick up Stuck Chips, nor can he place any other chips in their stead. He will just need
+                to take them into account and work around them.</p>
+            <p>On higher difficulty levels, there are more Stuck Chips scattered across the board, making the mini-game
+                more complicated.</p>
             <h3>Unknown Chips</h3>
             <div style="display: flex; flex-direction: row;">
                 <img src="Assets/Unknown Chip.png" alt="Unknown Chip" style="height: 100%;">
-                <p style="padding-left: 20px; margin: auto;">On the higher mini-game difficulties, some chips may initially be "Unknown". They appear without any symbol emblazoned on them. A Player can try to figure out what each of these Unknown Chips do by observing the way electricity flows through them - I.E. looking at the state of the Input and Output wires and trying to deduce what type of operation is performed on the shown input to get the shown output.</p>
+                <p style="padding-left: 20px; margin: auto;">On the higher mini-game difficulties, some chips may
+                    initially be "Unknown". They appear without any symbol emblazoned on them. A Player can try to
+                    figure out what each of these Unknown Chips do by observing the way electricity flows through them -
+                    I.E. looking at the state of the Input and Output wires and trying to deduce what type of operation
+                    is performed on the shown input to get the shown output.</p>
             </div>
-            <p>If Player ever places down a Logic Chip to replace an Unknown Chip, the Unknown Chip is then revealed, showing the correct symbol emblazoned on it for the remainder of the Mini-Game.</p>
-            <p>This is very important. If you don't know what a chip is doing, you can't anticipate what will happen once you change the input that chip gets. Knowing what kind of chip it is allows you to figure out what'll happen say, if you cut electricity to one of its Input Wires. Once the chip's symbol is revealed, this becomes much easier to figure out.</p>
-            <p>One very important trick to learn with regards to Unknown Chips is being able to replace them without changing the board at all. In other words, placing another chip in their stead (which automatically reveals their symbol, as explained above) without causing any unexpected (and dangerous) change to the flow of electricity.</p>
-            <p>This is why each of the individual Logic Chip pages lists the types of chips that can be substituted for one another without changing the output at all. Learning how to do this will make the harder difficulty levels significantly easier.</p>
-
-            <div id='#Chip_Table' 
-            style="display: grid; display: none;
-            grid-template-columns: auto auto auto auto;
-            grid-gap: 2px; padding: 10px 0px;">
-                <div style="  background-color: rgba(255, 255, 255, 0.8);
-                border: 1px solid black;
-                text-align: center;
-                font-size: 30px">1</div>
-                <div style="  background-color: rgba(255, 255, 255, 0.8);
-                border: 1px solid black;
-                text-align: center;
-                font-size: 30px">2</div>
-                <div style="  background-color: rgba(255, 255, 255, 0.8);
-                border: 1px solid black;
-                text-align: center;
-                font-size: 30px">3</div>  
-                <div style="  background-color: rgba(255, 255, 255, 0.8);
-                border: 1px solid black;
-                text-align: center;
-                font-size: 30px">4</div>
-                <div>5</div>
-                <div>6</div>
-                <div>7</div>
-                <div>8</div>
-            </div>
-
-            <table class="SolidSinglePixelTable" border="1" cellpadding="5" cellspacing="0" style="margin: 0 auto; width: 90%;">
-                <tbody><tr>
-                <td style="text-align: center; "><b>Type of Chip</b>
-                </td><td style="text-align: center;"><b>Symbol</b>
-                </td><td style="text-align: center;"><b>Effect</b>
-                </td><td style="text-align: center;"><b>Min. Difficulty</b>
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/No_Action_(Chip)" title="No Action (Chip)">No Action</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/b/b1/Electronics_NoAction_Large.png/revision/latest?cb=20110101032917" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/b/b1/Electronics_NoAction_Large.png/revision/latest?cb=20110101032917" alt="Electronics NoAction Large" class="" data-image-key="Electronics_NoAction_Large.png" data-image-name="Electronics NoAction Large.png" width="88" height="92"></a>
-                </td><td>Both paths pass unaffected through the chip.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Crossover_(Chip)" title="Crossover (Chip)">Crossover</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/2/20/Electronics_Crossover_Large.png/revision/latest?cb=20110101032934" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/20/Electronics_Crossover_Large.png/revision/latest?cb=20110101032934" alt="Electronics Crossover Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_Crossover_Large.png" data-image-name="Electronics Crossover Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/2/20/Electronics_Crossover_Large.png/revision/latest?cb=20110101032934" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/20/Electronics_Crossover_Large.png/revision/latest?cb=20110101032934" 	 alt="Electronics Crossover Large"  	class="" 	 	data-image-key="Electronics_Crossover_Large.png" 	data-image-name="Electronics Crossover Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Crosses the paths over one another.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Top_Combiner_(Chip)" title="Top Combiner (Chip)">Top Combiner</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/2/22/Electronics_CombinerUp_Large.png/revision/latest?cb=20110101032954" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/22/Electronics_CombinerUp_Large.png/revision/latest?cb=20110101032954" alt="Electronics CombinerUp Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_CombinerUp_Large.png" data-image-name="Electronics CombinerUp Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/2/22/Electronics_CombinerUp_Large.png/revision/latest?cb=20110101032954" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/22/Electronics_CombinerUp_Large.png/revision/latest?cb=20110101032954" 	 alt="Electronics CombinerUp Large"  	class="" 	 	data-image-key="Electronics_CombinerUp_Large.png" 	data-image-name="Electronics CombinerUp Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Combines both signals and sends the result out the top path.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Bottom_Combiner_(Chip)" title="Bottom Combiner (Chip)">Bottom Combiner</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/d/db/Electronics_CombinerDown_Large.png/revision/latest?cb=20110101033012" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/db/Electronics_CombinerDown_Large.png/revision/latest?cb=20110101033012" alt="Electronics CombinerDown Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_CombinerDown_Large.png" data-image-name="Electronics CombinerDown Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/d/db/Electronics_CombinerDown_Large.png/revision/latest?cb=20110101033012" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/db/Electronics_CombinerDown_Large.png/revision/latest?cb=20110101033012" 	 alt="Electronics CombinerDown Large"  	class="" 	 	data-image-key="Electronics_CombinerDown_Large.png" 	data-image-name="Electronics CombinerDown Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Combines both signals and sends the result out the bottom path.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Top_Splitter_(Chip)" title="Top Splitter (Chip)">Top Splitter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/f/f8/Electronics_SplitterTop_Large.png/revision/latest?cb=20110101033029" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/f/f8/Electronics_SplitterTop_Large.png/revision/latest?cb=20110101033029" alt="Electronics SplitterTop Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_SplitterTop_Large.png" data-image-name="Electronics SplitterTop Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/f/f8/Electronics_SplitterTop_Large.png/revision/latest?cb=20110101033029" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/f/f8/Electronics_SplitterTop_Large.png/revision/latest?cb=20110101033029" 	 alt="Electronics SplitterTop Large"  	class="" 	 	data-image-key="Electronics_SplitterTop_Large.png" 	data-image-name="Electronics SplitterTop Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Copies the signal from the top path to both paths.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Bottom_Splitter_(Chip)" title="Bottom Splitter (Chip)">Bottom Splitter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/6/6e/Electronics_SplitterBottom_Large.png/revision/latest?cb=20110101041506" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/6/6e/Electronics_SplitterBottom_Large.png/revision/latest?cb=20110101041506" alt="Electronics SplitterBottom Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_SplitterBottom_Large.png" data-image-name="Electronics SplitterBottom Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/6/6e/Electronics_SplitterBottom_Large.png/revision/latest?cb=20110101041506" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/6/6e/Electronics_SplitterBottom_Large.png/revision/latest?cb=20110101041506" 	 alt="Electronics SplitterBottom Large"  	class="" 	 	data-image-key="Electronics_SplitterBottom_Large.png" 	data-image-name="Electronics SplitterBottom Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Copies the signal from the bottom path to both paths.
-                </td><td style="text-align: center;">1
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Top_Inverter_(Chip)" title="Top Inverter (Chip)">Top Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/d/d6/Electronics_InverterTop_Large.png/revision/latest?cb=20110101033100" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/d6/Electronics_InverterTop_Large.png/revision/latest?cb=20110101033100" alt="Electronics InverterTop Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_InverterTop_Large.png" data-image-name="Electronics InverterTop Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/d/d6/Electronics_InverterTop_Large.png/revision/latest?cb=20110101033100" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/d6/Electronics_InverterTop_Large.png/revision/latest?cb=20110101033100" 	 alt="Electronics InverterTop Large"  	class="" 	 	data-image-key="Electronics_InverterTop_Large.png" 	data-image-name="Electronics InverterTop Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal of the top path.
-                </td><td style="text-align: center;">2
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Bottom_Inverter_(Chip)" title="Bottom Inverter (Chip)">Bottom Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/d/da/Electronics_InverterBottom_Large.png/revision/latest?cb=20110101033114" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/da/Electronics_InverterBottom_Large.png/revision/latest?cb=20110101033114" alt="Electronics InverterBottom Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_InverterBottom_Large.png" data-image-name="Electronics InverterBottom Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/d/da/Electronics_InverterBottom_Large.png/revision/latest?cb=20110101033114" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/da/Electronics_InverterBottom_Large.png/revision/latest?cb=20110101033114" 	 alt="Electronics InverterBottom Large"  	class="" 	 	data-image-key="Electronics_InverterBottom_Large.png" 	data-image-name="Electronics InverterBottom Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal of the bottom path.
-                </td><td style="text-align: center;">2
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Double_Inverter_(Chip)" title="Double Inverter (Chip)">Double Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/4/4b/Electronics_InverterDouble_Large.png/revision/latest?cb=20110101033126" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/4/4b/Electronics_InverterDouble_Large.png/revision/latest?cb=20110101033126" alt="Electronics InverterDouble Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_InverterDouble_Large.png" data-image-name="Electronics InverterDouble Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/4/4b/Electronics_InverterDouble_Large.png/revision/latest?cb=20110101033126" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/4/4b/Electronics_InverterDouble_Large.png/revision/latest?cb=20110101033126" 	 alt="Electronics InverterDouble Large"  	class="" 	 	data-image-key="Electronics_InverterDouble_Large.png" 	data-image-name="Electronics InverterDouble Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal of both paths.
-                </td><td style="text-align: center;">3
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Top_Crossover_Inverter_(Chip)" title="Top Crossover Inverter (Chip)">Top Crossover Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/d/df/Electronics_CrossoverInverterTop_Large.png/revision/latest?cb=20110101041526" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/df/Electronics_CrossoverInverterTop_Large.png/revision/latest?cb=20110101041526" alt="Electronics CrossoverInverterTop Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_CrossoverInverterTop_Large.png" data-image-name="Electronics CrossoverInverterTop Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/d/df/Electronics_CrossoverInverterTop_Large.png/revision/latest?cb=20110101041526" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/d/df/Electronics_CrossoverInverterTop_Large.png/revision/latest?cb=20110101041526" 	 alt="Electronics CrossoverInverterTop Large"  	class="" 	 	data-image-key="Electronics_CrossoverInverterTop_Large.png" 	data-image-name="Electronics CrossoverInverterTop Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal on the top path, then crosses both paths over one another.
-                </td><td style="text-align: center;">3
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Bottom_Crossover_Inverter_(Chip)" title="Bottom Crossover Inverter (Chip)">Bottom Crossover Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/6/65/Electronics_CrossoverInverterBottom_Large.png/revision/latest?cb=20110101033209" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/6/65/Electronics_CrossoverInverterBottom_Large.png/revision/latest?cb=20110101033209" alt="Electronics CrossoverInverterBottom Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_CrossoverInverterBottom_Large.png" data-image-name="Electronics CrossoverInverterBottom Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/6/65/Electronics_CrossoverInverterBottom_Large.png/revision/latest?cb=20110101033209" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/6/65/Electronics_CrossoverInverterBottom_Large.png/revision/latest?cb=20110101033209" 	 alt="Electronics CrossoverInverterBottom Large"  	class="" 	 	data-image-key="Electronics_CrossoverInverterBottom_Large.png" 	data-image-name="Electronics CrossoverInverterBottom Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal on the bottom path, then crosses both paths over one another.
-                </td><td style="text-align: center;">4
-                </td></tr>
-                <tr>
-                <td><a href="/wiki/Double_Crossover_Inverter_(Chip)" title="Double Crossover Inverter (Chip)">Double Crossover Inverter</a>
-                </td><td><a href="https://vignette.wikia.nocookie.net/covertaction/images/2/29/Electronics_CrossoverInverterDouble_Large.png/revision/latest?cb=20110101033226" class="image image-thumbnail"><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/29/Electronics_CrossoverInverterDouble_Large.png/revision/latest?cb=20110101033226" alt="Electronics CrossoverInverterDouble Large" class="lzyPlcHld lzyTrns lzyLoaded" data-image-key="Electronics_CrossoverInverterDouble_Large.png" data-image-name="Electronics CrossoverInverterDouble Large.png" data-src="https://vignette.wikia.nocookie.net/covertaction/images/2/29/Electronics_CrossoverInverterDouble_Large.png/revision/latest?cb=20110101033226" width="88" height="92" onload="if(typeof ImgLzy==='object'){ImgLzy.load(this)}"><noscript><img src="https://vignette.wikia.nocookie.net/covertaction/images/2/29/Electronics_CrossoverInverterDouble_Large.png/revision/latest?cb=20110101033226" 	 alt="Electronics CrossoverInverterDouble Large"  	class="" 	 	data-image-key="Electronics_CrossoverInverterDouble_Large.png" 	data-image-name="Electronics CrossoverInverterDouble Large.png" 	 	 width="88"  	 height="92"  	 	 	 	></noscript></a>
-                </td><td>Inverts the signal on both paths, and crosses both paths over one another.
-                </td><td style="text-align: center;">4
-                </td></tr></tbody></table>
+            <p>If Player ever places down a Logic Chip to replace an Unknown Chip, the Unknown Chip is then revealed,
+                showing the correct symbol emblazoned on it for the remainder of the Mini-Game.</p>
+            <p>This is very important. If you don't know what a chip is doing, you can't anticipate what will happen
+                once you change the input that chip gets. Knowing what kind of chip it is allows you to figure out
+                what'll happen say, if you cut electricity to one of its Input Wires. Once the chip's symbol is
+                revealed, this becomes much easier to figure out.</p>
+            <p>One very important trick to learn with regards to Unknown Chips is being able to replace them without
+                changing the board at all. In other words, placing another chip in their stead (which automatically
+                reveals their symbol, as explained above) without causing any unexpected (and dangerous) change to the
+                flow of electricity.</p>
+            <p>This is why each of the individual Logic Chip pages lists the types of chips that can be substituted for
+                one another without changing the output at all. Learning how to do this will make the harder difficulty
+                levels significantly easier.</p>
 
         </section>
-        
+
+        <div class="grid-container">
+            <div class="grid-header">Type</div>
+            <div class="grid-header">Symbol</div>
+            <div class="grid-header">Effect</div>  
+
+            <div class="grid-item">No Action</div>
+            <div class="grid-item"><img src="Assets/EC-01.png" alt="No Action Chip"></div>
+            <div class="grid-item">Both paths pass unaffected through the chip.</div>  
+
+            <div class="grid-item">Crossover</div>
+            <div class="grid-item"><img src="Assets/EC-02.png" alt="Crossover Chip"></div>
+            <div class="grid-item">Crosses the paths over one another.</div>  
+
+            <div class="grid-item">Top Combiner</div>
+            <div class="grid-item"><img src="Assets/EC-03.png" alt="Top Combiner Chip"></div>
+            <div class="grid-item">Combines both signals and sends the result out the top path.</div>  
+
+            <div class="grid-item">Bottom Combiner</div>
+            <div class="grid-item"><img src="Assets/EC-04.png" alt="Bottom Combiner Chip"></div>
+            <div class="grid-item">Combines both signals and sends the result out the bottom path.</div>  
+
+            <div class="grid-item">Top Splitter</div>
+            <div class="grid-item"><img src="Assets/EC-05.png" alt="Top Splitter Chip"></div>
+            <div class="grid-item">Copies the signal from the top path to both paths.</div>  
+
+            <div class="grid-item">Bottom Splitter</div>
+            <div class="grid-item"><img src="Assets/EC-06.png" alt="Bottom Splitter Chip"></div>
+            <div class="grid-item">Copies the signal from the bottom path to both paths.</div>  
+
+            <div class="grid-item">Top Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-07.png" alt="Top Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal of the top path.</div>  
+
+            <div class="grid-item">Bottom Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-08.png" alt="Bottom Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal of the bottom path.</div>  
+
+            <div class="grid-item">Double Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-09.png" alt="Double Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal of both paths.</div>  
+
+            <div class="grid-item">Top Crossover Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-10.png" alt="Top Crossover Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal on the top path, then crosses both paths over one another.</div>  
+
+            <div class="grid-item">Bottom Crossover Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-11.png" alt="Bottom Crossover Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal on the bottom path, then crosses both paths over one another.</div>  
+
+            <div class="grid-item">Double Crossover Inverter</div>
+            <div class="grid-item"><img src="Assets/EC-12.png" alt="Double Crossover Inverter Chip"></div>
+            <div class="grid-item">Inverts the signal on both paths, and crosses both paths over one another.</div>  
+
+        </div>
 
     </main>
 </body>
